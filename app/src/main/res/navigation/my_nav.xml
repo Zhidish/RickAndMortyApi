@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/rickAndMortyMenu">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.leobit.testapplication.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/details"
+        android:name="com.leobit.testapplication.details"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" />
+
+    <fragment
+        android:id="@+id/detail"
+        android:name="com.leobit.testapplication.detail"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="1" />
+    </fragment>
+    <fragment
+        android:id="@+id/rickAndMortyMenu"
+        android:name="com.leobit.testapplication.morty_menu.RickAndMortyMenu"
+        android:label="rick_and_morty_menu"
+        tools:layout="@layout/rick_and_morty_menu" >
+        <action
+            android:id="@+id/action_rickAndMortyMenu_to_rickAndMortyFragment"
+            app:destination="@id/rickAndMortyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/rickAndMortyFragment"
+        android:name="com.leobit.testapplication.adapter.RickAndMortyFragment"
+        android:label="RickAndMortyFragment" >
+        <action
+            android:id="@+id/action_rickAndMortyFragment_to_detail"
+            app:destination="@id/detail" />
+        <argument
+            android:name="destination"
+            app:argType="string" />
+    </fragment>
+</navigation>
