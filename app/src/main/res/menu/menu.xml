@@ -3,9 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id = "@+id/rickAndMortyMenu"
         android:icon="@drawable/ic_baseline_home_24"
         android:title="home" />
     <item
+        android:id="@+id/back"
         android:icon="@drawable/ic_round_undo_24"
         android:title="back" />
 </menu>
