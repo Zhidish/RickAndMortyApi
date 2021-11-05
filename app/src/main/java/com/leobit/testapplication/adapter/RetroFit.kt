@@ -7,6 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 private val BASE_URL = "https://swapi.dev/api/"
@@ -36,21 +37,9 @@ private val RickAndMortiRetrofit = Retrofit
     .build()
 
 
-interface SWApi {
-
-    @GET("people")
-    suspend fun getPeople(): CardHolder?
-
-    @GET("people/{id}")
-    suspend fun getConcretePeople(@Path("id") id:Int): CardObtainer?
-
-
-}
 
 interface RickAndMorty{
 
-    @GET("character/1")
-    suspend fun getCharacterI() : Character
 
     @GET("$CHARACTER/{id}")
     suspend fun getCharacter(@Path("id") id : Int) : Character
@@ -62,13 +51,19 @@ interface RickAndMorty{
     suspend fun getEpisode(@Path("id") id : Int) : Episode
 
 
+    @GET("$CHARACTER")
+    suspend fun getAllCharacters() : Characters
+
+
+    @GET("$CHARACTER/?")
+   suspend fun getAllCharacters(@Query("page") id : Int) : Characters
+
+
 }
 
 
 object CallsToApi {
     // setvice to obtain people
-
-    val retrofitPeopleService: SWApi by lazy { retrofit.create(SWApi::class.java) }
 
     val RickAndMortyService : RickAndMorty by lazy { RickAndMortiRetrofit.create(RickAndMorty::class.java) }
 

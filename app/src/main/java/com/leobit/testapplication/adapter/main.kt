@@ -1,36 +1,53 @@
 package com.leobit.testapplication.adapter
 
-import android.util.Log
-import com.leobit.testapplication.network.CardObtainer
 import com.leobit.testapplication.network.Character
-import retrofit2.HttpException
+import com.leobit.testapplication.network.Characters
 import java.lang.Exception
 import java.util.ArrayList
 
 suspend fun main() {
-    val people = CallsToApi.retrofitPeopleService.getPeople()
 
 
-    val listPeople: MutableList<CardObtainer?> = ArrayList()
     val listCharacter: MutableList<Character?> = ArrayList()
-        var count =1
-    while (true) {
-       try{
-           print("iteration ${count}")
-        listCharacter.add(CallsToApi.RickAndMortyService.getCharacter(count++))
-       } catch(e : Exception){
-        break
-       }
+    var obtainer: Obtainer? = null
+    var count = 1
 
+
+    var characters: Characters? = null
+
+    try {
+
+        characters = CallsToApi.RickAndMortyService.getAllCharacters()
+        print("sdsds")
+        obtainer = Obtainer(characters)
+
+    } catch (e: Exception) {
+        print(e.localizedMessage)
     }
 
+    for(i in 0..19){
+        if (obtainer != null) {
+            println(obtainer.charactersList[i].name)
+        }else{
+            println("sdsdsdsdsdsdsds")
 
-    for(item in listCharacter){
-        if (item != null) {
-            print(item.name)
         }
 
-
     }
 
+    print(characters?.info?.count)
 }
+
+class Obtainer(val characters: Characters) {
+
+    var charactersList: MutableList<Character> = mutableListOf()
+
+  init {
+      print("sadads")
+      characters.results.let { charactersList.addAll(it) }
+  }
+
+}
+
+
+

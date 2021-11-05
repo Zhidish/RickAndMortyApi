@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 
 import coil.load
-import com.leobit.testapplication.network.CardObtainer
+
 import com.leobit.testapplication.network.Character
 import com.leobit.testapplication.network.Location
 
@@ -15,7 +15,6 @@ import com.leobit.testapplication.network.Location
 fun binRecyclerView(recyclerView: RecyclerView, data: List<Location>?) {
    val adapter = recyclerView.adapter as RecyclerAdapter
     adapter.submitList(data)
-
 
 }
 

@@ -23,12 +23,18 @@ class MainActivity : AppCompatActivity() {
             findViewById<BottomNavigationView>(R.id.bottom)
             bottomNavigation.setupWithNavController(navController)
 
+
+
         (bottomNavigation).setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.back-> {onBackPressed()
                  true
                 }
-                else ->  false
+
+                R.id.home -> {navController.navigate(R.id.rickAndMortyMenu)
+                true}
+
+                else -> false
             }
         }
 

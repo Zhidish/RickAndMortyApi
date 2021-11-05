@@ -5,16 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.leobit.testapplication.R
-import com.leobit.testapplication.databinding.MortyGridBinding
 import com.leobit.testapplication.databinding.MortyGridItemBinding
 import com.leobit.testapplication.morty_menu.BounceInterpretator
-import com.leobit.testapplication.network.CardObtainer
 import com.leobit.testapplication.network.Character
 
 class GridAdapter :
@@ -61,8 +58,11 @@ class GridAdapter :
             override fun onClick(v: View?) {
 
                 // val bundle = bundleOf("id" to (position+1) )
-                val animation = AnimationUtils.loadAnimation(holder.binding.root.context, R.anim.bounce)
+
+                val animation =
+                    AnimationUtils.loadAnimation(holder.binding.root.context, R.anim.bounce)
                 val bounce = BounceInterpretator(0.2, 20.0)
+
                 animation.setInterpolator(bounce)
                 holder.itemView.startAnimation(animation)
 
@@ -73,17 +73,13 @@ class GridAdapter :
                     v.findNavController().navigate(navigate)
                 }
 
-
             }
 
         }
 
-
         )
 
-
         holder.bind(character)
-
     }
 
 

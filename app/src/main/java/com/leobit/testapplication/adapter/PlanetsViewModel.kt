@@ -4,19 +4,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.leobit.testapplication.network.Character
 import com.leobit.testapplication.network.Location
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-class PlanetsOverView : RickAndMortyOverVIew() {
-  val _properties1 = MutableLiveData<List<Location>>()
+class PlanetsViewModel :ViewModel() {
+  val _properties = MutableLiveData<List<Location>>()
 
 
-   val properties1: LiveData<List<Location>> = _properties1
+   val properties1: LiveData<List<Location>> = _properties
 
 
-    override fun getCharacter() {
+
+     fun getCharacter() {
         viewModelScope.launch {
             val list = ArrayList<Location>()
 
@@ -30,7 +30,7 @@ class PlanetsOverView : RickAndMortyOverVIew() {
 
             }
 
-            _properties1.value=list
+            _properties.value=list
         }
 
 

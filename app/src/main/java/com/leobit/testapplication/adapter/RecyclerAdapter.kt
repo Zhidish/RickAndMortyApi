@@ -22,7 +22,6 @@ class RecyclerAdapter :
             binding.gridItem.text = with(location){
                 "Planet name : ${location.name}\nPlanet type : ${location.type}\n" +
                 "Planet dimension : ${location.dimension}\n"
-
             }
 
         }

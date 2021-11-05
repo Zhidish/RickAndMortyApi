@@ -6,11 +6,6 @@
     app:startDestination="@id/rickAndMortyMenu">
 
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.leobit.testapplication.ui.login.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
-    <fragment
         android:id="@+id/details"
         android:name="com.leobit.testapplication.details"
         android:label="fragment_details"

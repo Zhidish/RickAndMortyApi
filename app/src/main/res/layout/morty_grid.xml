@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.leobit.testapplication.adapter.RickAndMortyOverVIew" />
+            type="com.leobit.testapplication.adapter.CharactersViewModel" />
     </data>
 
 
