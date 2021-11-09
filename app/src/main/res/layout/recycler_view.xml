@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:listData="@{viewModel1.properties1}"
+
             tools:layout_editor_absoluteX="-45dp"
             tools:layout_editor_absoluteY="0dp"
             tools:listitem="@layout/grid_item" />
