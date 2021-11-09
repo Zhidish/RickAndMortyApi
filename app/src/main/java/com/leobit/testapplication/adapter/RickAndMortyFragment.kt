@@ -9,16 +9,18 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import com.leobit.testapplication.adapter.pagelistadapter.pagelist.PagindListCharacterAdapter
+import com.leobit.testapplication.adapter.pagelistadapter.pagelist.PagingListLocationsAdapter
 import com.leobit.testapplication.databinding.MortyGridBinding
 import com.leobit.testapplication.databinding.RecyclerViewBinding
 import com.leobit.testapplication.network.Character
+import com.leobit.testapplication.network.Location
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class RickAndMortyFragment : Fragment() {
 
     val charactersViewModel: CharactersViewModel by viewModels()
-    val planetViewModelModel: PlanetsViewModel by viewModels()
+    val planetViewModel: PlanetsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,7 +47,7 @@ class RickAndMortyFragment : Fragment() {
 
                 lifecycleScope.launch {
                     charactersViewModel.flow.collectLatest { value: PagingData<Character> ->
-                            pagindAdapter.submitData(value)
+                        pagindAdapter.submitData(value)
                     }
 
                 }
@@ -53,19 +55,45 @@ class RickAndMortyFragment : Fragment() {
             }
 
             "Planets" -> {
-                val bindingRecycler = RecyclerViewBinding.inflate(inflater)
-                bindingRecycler.lifecycleOwner = this
-                bindingRecycler.viewModel1 = planetViewModelModel
-                bindingRecycler.recyler.adapter = RecyclerAdapter()
-                return bindingRecycler.root
+
+                val binding = RecyclerViewBinding.inflate(inflater)
+                binding.lifecycleOwner = this
+                binding.viewModel1 = planetViewModel
+
+                val pagindAdapter = PagingListLocationsAdapter()
+
+                binding.recyler.adapter = pagindAdapter
+
+                lifecycleScope.launch {
+                    planetViewModel.flow.collectLatest { value: PagingData<Location> ->
+                        pagindAdapter.submitData(value)
+                    }
+
+                }
+
+
+                return binding.root
 
             }
             else -> {
                 val binding = MortyGridBinding.inflate(inflater)
                 binding.lifecycleOwner = this
                 binding.viewModel = charactersViewModel
-                binding.mortyRecycler.adapter = GridAdapter()
+
+
+                val pagindAdapter = PagindListCharacterAdapter()
+                binding.mortyRecycler.adapter = pagindAdapter
+
+                lifecycleScope.launch {
+                    charactersViewModel.flow.collectLatest { value: PagingData<Character> ->
+                        pagindAdapter.submitData(value)
+                    }
+
+                }
                 return binding.root
+
+
+
 
 
             }

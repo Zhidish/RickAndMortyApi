@@ -13,11 +13,15 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.leobit.testapplication.R
 import com.leobit.testapplication.adapter.RickAndMortyFragmentDirections
+import com.leobit.testapplication.databinding.GridItemBinding
 import com.leobit.testapplication.network.Character
 
 import com.leobit.testapplication.databinding.MortyGridItemBinding
 import com.leobit.testapplication.morty_menu.BounceInterpretator
+import com.leobit.testapplication.network.Location
 
+
+// object for tracking changes for echa grid item
 val CHARACTER_COMPORATOR = object :
     DiffUtil.ItemCallback<Character>() {
 
@@ -33,8 +37,24 @@ val CHARACTER_COMPORATOR = object :
 }
 
 
+val LOCATION_COMPORATOR = object :
+    DiffUtil.ItemCallback<Location>() {
+    override fun areItemsTheSame(oldItem: Location, newItem: Location): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: Location, newItem: Location): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+
+}
+
+
 class PagindListCharacterAdapter :
-    PagingDataAdapter<Character, PagindListCharacterAdapter.CharacterViewHolder>(CHARACTER_COMPORATOR) {
+    PagingDataAdapter<Character, PagindListCharacterAdapter.CharacterViewHolder>(
+        CHARACTER_COMPORATOR
+    ) {
 
     class CharacterViewHolder(
         var binding: MortyGridItemBinding
@@ -50,8 +70,10 @@ class PagindListCharacterAdapter :
         }
     }
 
-    override fun onBindViewHolder(holder: CharacterViewHolder,
-                                  @SuppressLint("RecyclerView") position: Int) {
+    override fun onBindViewHolder(
+        holder: CharacterViewHolder,
+        @SuppressLint("RecyclerView") position: Int
+    ) {
         val character = getItem(position)
 
         if (character != null) {
@@ -77,8 +99,6 @@ class PagindListCharacterAdapter :
                     }
 
                 }
-
-
             }
             )
 
@@ -93,4 +113,50 @@ class PagindListCharacterAdapter :
 
 
 }
+
+class PagingListLocationsAdapter : PagingDataAdapter<Location, PagingListLocationsAdapter.LocationViewModel>(
+    LOCATION_COMPORATOR) {
+
+    class LocationViewModel(
+        var binding: GridItemBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(location: Location) {
+            binding.planet =location.copy()
+            //
+
+            binding.gridItem.text = with(location){
+                "Planet name : ${location.name}\nPlanet type : ${location.type}\n" +
+                        "Planet dimension : ${location.dimension}\n"
+            }
+
+
+            binding.executePendingBindings()
+        }
+
+        }
+
+    override fun onBindViewHolder(holder: LocationViewModel, position: Int) {
+               val location = getItem(position)
+        if (location != null) {
+
+            holder.bind(location)
+        }
+
+
+
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationViewModel {
+        return LocationViewModel(
+            GridItemBinding.inflate(LayoutInflater.from(parent.context))
+        )
+    }
+
+
+}
+
+
+
+
 

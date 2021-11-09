@@ -5,11 +5,12 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.leobit.testapplication.adapter.CallsToApi
 import com.leobit.testapplication.network.Character
+import com.leobit.testapplication.network.Location
 import retrofit2.HttpException
 import java.io.IOException
 
 
-class PostionalCharacterDataSource : PagingSource<Int, Character>() {
+class PositionalCharacterDataSource : PagingSource<Int, Character>() {
     override fun getRefreshKey(state: PagingState<Int, Character>): Int? {
         return state.anchorPosition.let {
             if (it != null) {
@@ -38,7 +39,7 @@ class PostionalCharacterDataSource : PagingSource<Int, Character>() {
             val prevPage = if (pageNumber > 0) pageNumber - 1 else null
 
 
-            val nextPage = if (pageNumber >= responds.info.pages) pageNumber + 1 else null
+            val nextPage = if (pageNumber <= responds.info.pages) pageNumber + 1 else null
 
             LoadResult.Page(
                 data = responds.results,
@@ -52,6 +53,54 @@ class PostionalCharacterDataSource : PagingSource<Int, Character>() {
             LoadResult.Error(e)
 
         }
+
+    }
+
+
+}
+
+
+class PositionalPlanetDataSource : PagingSource<Int, Location>(){
+    override fun getRefreshKey(state: PagingState<Int, Location>): Int? {
+      return  state.anchorPosition.let{
+            if (it != null) {
+                state.closestPageToPosition(it)?.prevKey?.plus(1)?:
+                state.closestPageToPosition(it)?.nextKey?.minus(1)
+            }else 0
+
+
+        }
+    }
+
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Location> {
+
+        return try {
+
+            val pageNumber = params.key ?: 1
+
+
+            val responds = CallsToApi.RickAndMortyService.getAllLocation(pageNumber)
+
+
+            val prevPage = if (pageNumber > 0) pageNumber - 1 else null
+
+
+            val nextPage = if (pageNumber <= responds.info.pages) pageNumber + 1 else null
+
+            LoadResult.Page(
+                data = responds.results,
+                prevKey = prevPage,
+                nextKey = nextPage
+            )
+
+        } catch (e: IOException) {
+            LoadResult.Error(e)
+        } catch (e: HttpException) {
+            LoadResult.Error(e)
+
+        }
+
+
 
     }
 

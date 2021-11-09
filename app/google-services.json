@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "534016554694",
+    "project_id": "rickandmortyapi-3e5e1",
+    "storage_bucket": "rickandmortyapi-3e5e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:534016554694:android:8688427f295e5e0daf89c7",
+        "android_client_info": {
+          "package_name": "com.leobit.testapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "534016554694-jja4vakr9em96rjulg22gi3sroe4j0ro.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.leobit.testapplication",
+            "certificate_hash": "d16fc54398c0e677854135e2af5c442f9d6efa92"
+          }
+        },
+        {
+          "client_id": "534016554694-bmceudieb3j0et6ssiidpmm05ektnpjj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCN0ob5XEIqBwRLOS5Gs5pA_wfJ9IsptUo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "534016554694-bmceudieb3j0et6ssiidpmm05ektnpjj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

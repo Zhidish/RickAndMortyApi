@@ -1,6 +1,5 @@
 package com.leobit.testapplication.adapter
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,11 +7,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import com.leobit.testapplication.adapter.pagelistadapter.pagelist.data.PostionalCharacterDataSource
+import com.leobit.testapplication.adapter.pagelistadapter.pagelist.data.PositionalCharacterDataSource
 import com.leobit.testapplication.network.Character
-import kotlinx.coroutines.launch
-
-import retrofit2.HttpException
 
 open class CharactersViewModel : ViewModel() {
 
@@ -30,7 +26,7 @@ open class CharactersViewModel : ViewModel() {
         // PagingConfig, such as prefetchDistance.
         PagingConfig(pageSize = 20)
     ) {
-        PostionalCharacterDataSource()
+        PositionalCharacterDataSource()
     }.flow
         .cachedIn(viewModelScope)
 

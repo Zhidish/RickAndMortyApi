@@ -3,13 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/rickAndMortyMenu">
-
-    <fragment
-        android:id="@+id/details"
-        android:name="com.leobit.testapplication.details"
-        android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
+    app:startDestination="@id/logInFragment">
 
     <fragment
         android:id="@+id/detail"
@@ -41,4 +35,8 @@
             android:name="destination"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/logInFragment"
+        android:name="com.leobit.testapplication.LogInFragment"
+        android:label="LogInFragment" />
 </navigation>

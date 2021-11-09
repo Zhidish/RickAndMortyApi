@@ -59,6 +59,13 @@ interface RickAndMorty{
    suspend fun getAllCharacters(@Query("page") id : Int) : Characters
 
 
+
+   @GET("$LOCATION/?")
+   suspend fun getAllLocation(@Query("page") id : Int) : Locations
+
+
+
+
 }
 
 
