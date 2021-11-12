@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import androidx.navigation.findNavController
+
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -66,12 +66,6 @@ class GridAdapter :
                 animation.setInterpolator(bounce)
                 holder.itemView.startAnimation(animation)
 
-                val navigate = RickAndMortyFragmentDirections.actionRickAndMortyFragmentToDetail()
-                navigate.id = (position + 1)
-
-                if (v != null) {
-                    v.findNavController().navigate(navigate)
-                }
 
             }
 

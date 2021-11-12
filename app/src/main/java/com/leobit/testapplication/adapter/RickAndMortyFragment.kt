@@ -18,7 +18,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class RickAndMortyFragment : Fragment() {
-
     val charactersViewModel: CharactersViewModel by viewModels()
     val planetViewModel: PlanetsViewModel by viewModels()
 

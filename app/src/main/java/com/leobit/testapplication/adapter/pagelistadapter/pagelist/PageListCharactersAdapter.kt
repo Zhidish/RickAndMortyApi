@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.net.toUri
-import androidx.navigation.findNavController
+
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.leobit.testapplication.R
-import com.leobit.testapplication.adapter.RickAndMortyFragmentDirections
+
 import com.leobit.testapplication.databinding.GridItemBinding
 import com.leobit.testapplication.network.Character
 
@@ -90,13 +90,6 @@ class PagindListCharacterAdapter :
                     animation.setInterpolator(bounce)
                     holder.itemView.startAnimation(animation)
 
-                    val navigate =
-                        RickAndMortyFragmentDirections.actionRickAndMortyFragmentToDetail()
-                    navigate.id = (position + 1)
-
-                    if (v != null) {
-                        v.findNavController().navigate(navigate)
-                    }
 
                 }
             }
