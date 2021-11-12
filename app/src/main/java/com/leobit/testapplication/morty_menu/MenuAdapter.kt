@@ -1,7 +1,9 @@
 package com.leobit.testapplication.morty_menu
 
 import android.annotation.SuppressLint
+import android.app.FragmentManager
 import android.content.Context
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +11,13 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
+import androidx.fragment.app.FragmentTransaction
+
 import androidx.recyclerview.widget.RecyclerView
 import com.leobit.testapplication.R
+import com.leobit.testapplication.adapter.RickAndMortyFragment
 import com.leobit.testapplication.morty_menu.data.data
 
 class MenuAdapter(
@@ -21,7 +25,7 @@ class MenuAdapter(
 
 ) : RecyclerView.Adapter<MenuAdapter.MenuImage>() {
     var dataSource = data.items
-    val detail = RickAndMortyMenuDirections.actionRickAndMortyMenuToRickAndMortyFragment("")
+    var fragmentManager = (context as AppCompatActivity).supportFragmentManager
 
 
     class MenuImage(view: View?) : RecyclerView.ViewHolder(view!!) {
@@ -41,6 +45,8 @@ class MenuAdapter(
     override fun onBindViewHolder(holder: MenuImage, @SuppressLint("RecyclerView") position: Int) {
         var item = dataSource[position]
         Log.d("holder", position.toString())
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
 
         holder.name?.text = item.name
         holder.image?.setImageResource(item.image)
@@ -57,14 +63,21 @@ class MenuAdapter(
 
                 when (holder.name?.text.toString()) {
 
-                    "Planets" -> if (v!= null){
-                        detail.destination = "Planets"
-                        v.findNavController().navigate(detail)
+                    "Planets" -> if (v != null) {
+                        //initializing budle for passing key destination
+                        val bundle = Bundle()
+                        bundle.putString("detination", "Planets")
+                        //initializing fragmnet
+                        val rickAndMortyFragment = RickAndMortyFragment()
+                        rickAndMortyFragment.arguments = bundle
+
+                        fragmentTransaction.replace()
+
                     }
 
                     "Characters" -> if (v != null) {
-                        detail.destination = "Characters"
-                        v.findNavController().navigate(detail)
+
+
                     }
 
 

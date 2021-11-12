@@ -4,10 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -52,12 +49,11 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
-        val navController = navHostFragment.navController
         val bottomNavigation =
             findViewById<BottomNavigationView>(R.id.bottom)
-        bottomNavigation.setupWithNavController(navController)
+
+
+
 
         (bottomNavigation).setOnItemSelectedListener {
             when (it.itemId) {
@@ -67,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.home -> {
-                    navController.navigate(R.id.rickAndMortyMenu)
+
                     true
                 }
 

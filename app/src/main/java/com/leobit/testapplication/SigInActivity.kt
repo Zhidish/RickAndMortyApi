@@ -1,5 +1,6 @@
 package com.leobit.testapplication
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -39,6 +40,7 @@ class SigInActivity : AppCompatActivity() {
     }
 
 
+    @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
         setContentView(R.layout.fragment_log_in)
@@ -46,7 +48,7 @@ class SigInActivity : AppCompatActivity() {
                 Log.e("I am here", "here")
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestIdToken(getString(9))
             .requestEmail()
             .build()
 

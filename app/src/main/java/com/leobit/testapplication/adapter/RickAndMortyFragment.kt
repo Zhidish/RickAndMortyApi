@@ -1,11 +1,12 @@
 package com.leobit.testapplication.adapter
 
+import android.media.Image
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import com.leobit.testapplication.adapter.pagelistadapter.pagelist.PagindListCharacterAdapter
@@ -18,8 +19,8 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class RickAndMortyFragment : Fragment() {
-    val charactersViewModel: CharactersViewModel by viewModels()
-    val planetViewModel: PlanetsViewModel by viewModels()
+    lateinit var charactersViewModel: CharactersViewModel
+    lateinit var planetViewModel: PlanetsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,6 +32,13 @@ class RickAndMortyFragment : Fragment() {
         //n your receiving destination’s code, use the getArguments() method to retrieve
         // the bundle and use its contents.
         // When using the -ktx dependencies, Kotlin users can also use the by navArgs() property delegate to access arguments.
+
+        charactersViewModel = ViewModelProvider(this).get(CharactersViewModel::class.java)
+
+
+
+        planetViewModel = ViewModelProvider(this).get(PlanetsViewModel::class.java)
+
 
 
         when (arguments?.getString("destination")) {
@@ -90,9 +98,6 @@ class RickAndMortyFragment : Fragment() {
 
                 }
                 return binding.root
-
-
-
 
 
             }
