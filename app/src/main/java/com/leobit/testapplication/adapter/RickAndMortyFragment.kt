@@ -2,6 +2,7 @@ package com.leobit.testapplication.adapter
 
 import android.media.Image
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,12 +50,12 @@ class RickAndMortyFragment : Fragment() {
                 binding.viewModel = charactersViewModel
 //                binding.mortyRecycler.adapter = GridAdapter()
 
-                val pagindAdapter = PagindListCharacterAdapter()
+                val pagindAdapter = context?.let { PagindListCharacterAdapter(it) }
                 binding.mortyRecycler.adapter = pagindAdapter
 
                 lifecycleScope.launch {
                     charactersViewModel.flow.collectLatest { value: PagingData<Character> ->
-                        pagindAdapter.submitData(value)
+                        pagindAdapter!!.submitData(value)
                     }
 
                 }
@@ -62,7 +63,7 @@ class RickAndMortyFragment : Fragment() {
             }
 
             "Planets" -> {
-
+                    Log.e("Planets", "in Planets")
                 val binding = RecyclerViewBinding.inflate(inflater)
                 binding.lifecycleOwner = this
                 binding.viewModel1 = planetViewModel
@@ -82,18 +83,20 @@ class RickAndMortyFragment : Fragment() {
                 return binding.root
 
             }
+
+
             else -> {
                 val binding = MortyGridBinding.inflate(inflater)
                 binding.lifecycleOwner = this
                 binding.viewModel = charactersViewModel
 
 
-                val pagindAdapter = PagindListCharacterAdapter()
+                val pagindAdapter = context?.let { PagindListCharacterAdapter(it) }
                 binding.mortyRecycler.adapter = pagindAdapter
 
                 lifecycleScope.launch {
                     charactersViewModel.flow.collectLatest { value: PagingData<Character> ->
-                        pagindAdapter.submitData(value)
+                        pagindAdapter!!.submitData(value)
                     }
 
                 }

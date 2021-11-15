@@ -40,6 +40,9 @@ class GridAdapter :
             return oldItem.id == newItem.id
         }
 
+        lateinit var rickAndMortyFragment : RickAndMortyFragment
+
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterVIewHolder {
@@ -75,6 +78,7 @@ class GridAdapter :
 
         holder.bind(character)
     }
+
 
 
 }

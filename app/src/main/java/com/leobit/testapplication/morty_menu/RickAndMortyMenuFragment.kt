@@ -12,7 +12,7 @@ import com.leobit.testapplication.databinding.ActivityMainBinding.inflate
 import com.leobit.testapplication.databinding.BottomNavigationViewBinding.inflate
 import com.leobit.testapplication.databinding.RickAndMortyMenuBinding
 
-class RickAndMortyMenu : Fragment() {
+class RickAndMortyMenuFragment : Fragment() {
 
     lateinit var rickAndMortyMenu: RickAndMortyMenuBinding
 

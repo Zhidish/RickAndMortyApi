@@ -1,5 +1,7 @@
 package com.leobit.testapplication
 
+import android.annotation.SuppressLint
+import android.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,8 +16,14 @@ import androidx.core.app.ActivityCompat.startActivityForResult
 
 import android.content.Intent
 import android.os.Handler
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
+import com.leobit.testapplication.adapter.RickAndMortyFragment
+import com.leobit.testapplication.morty_menu.MenuAdapter
+import com.leobit.testapplication.morty_menu.RickAndMortyMenuFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -23,10 +31,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var mGoogleSignInClient: GoogleSignInClient
 
+    @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-   setContentView(R.layout.bottom_navigation_view)
+        setContentView(R.layout.bottom_navigation_view)
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
@@ -42,12 +51,19 @@ class MainActivity : AppCompatActivity() {
             Log.e("Current", "Current_USER")
 
 
-        //   startActivity(signInIntent)
-          /*  finish();
-            return;*/
+            //   startActivity(signInIntent)
+            /*  finish();
+              return;*/
         }
+        //initializing FragmentManger
+       val rickAndMortyMenuFragment = RickAndMortyMenuFragment()
+        MenuAdapter.fragmentRickAndMortyMenu = rickAndMortyMenuFragment
 
 
+        val fragmentManagerActivity = supportFragmentManager.beginTransaction()
+
+        fragmentManagerActivity.add(R.id.fragment_container, rickAndMortyMenuFragment)
+        fragmentManagerActivity.commit()
 
         val bottomNavigation =
             findViewById<BottomNavigationView>(R.id.bottom)

@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.leobit.testapplication.R
 import com.leobit.testapplication.adapter.RickAndMortyFragment
+import com.leobit.testapplication.adapter.pagelistadapter.pagelist.PagindListCharacterAdapter
 import com.leobit.testapplication.morty_menu.data.data
 
 class MenuAdapter(
@@ -45,7 +46,7 @@ class MenuAdapter(
     override fun onBindViewHolder(holder: MenuImage, @SuppressLint("RecyclerView") position: Int) {
         var item = dataSource[position]
         Log.d("holder", position.toString())
-        val fragmentTransaction = fragmentManager.beginTransaction()
+        var fragmentTransaction = fragmentManager.beginTransaction()
 
 
         holder.name?.text = item.name
@@ -59,6 +60,7 @@ class MenuAdapter(
                 holder.image!!.startAnimation(animation)
 
                 // val detail =     RickAndMortyMenuDirections.actionRickAndMortyMenuToDetail()
+
                 Log.e("name", holder.name?.text.toString())
 
                 when (holder.name?.text.toString()) {
@@ -66,17 +68,38 @@ class MenuAdapter(
                     "Planets" -> if (v != null) {
                         //initializing budle for passing key destination
                         val bundle = Bundle()
-                        bundle.putString("detination", "Planets")
+                            Log.e("MenuAdapter","MenuAdapter")
+                        bundle.putString("destination", "Planets")
                         //initializing fragmnet
                         val rickAndMortyFragment = RickAndMortyFragment()
                         rickAndMortyFragment.arguments = bundle
 
-                        fragmentTransaction.replace()
+                        fragmentRickAndMortyMenu?.let { fragmentTransaction.remove(it).commit() }
+
+                        fragmentTransaction = fragmentManager.beginTransaction()
+                          //  Log.e("Planets", "Planets")
+                        fragmentTransaction.add(R.id.fragment_container, rickAndMortyFragment)
+                            .commit()
 
                     }
 
                     "Characters" -> if (v != null) {
 
+                        val bundle = Bundle()
+                        bundle.putString("destination", "Characters")
+                        //initializing fragmnet
+                        val rickAndMortyFragment = RickAndMortyFragment()
+                        PagindListCharacterAdapter.rickAndMortyFragment = rickAndMortyFragment
+                        rickAndMortyFragment.arguments = bundle
+
+                        fragmentRickAndMortyMenu?.let {
+                            fragmentTransaction.remove(it).commit()
+                        }
+
+                        fragmentTransaction = fragmentManager.beginTransaction()
+
+                        fragmentTransaction.add(R.id.fragment_container, rickAndMortyFragment)
+                            .commit()
 
                     }
 
@@ -93,4 +116,9 @@ class MenuAdapter(
 
     override fun getItemCount() = dataSource.size
 
+    companion object {
+        var fragmentRickAndMortyMenu: RickAndMortyMenuFragment? = null
+
+
+    }
 }
