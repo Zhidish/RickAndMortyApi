@@ -94,9 +94,6 @@ class PagindListCharacterAdapter(var context: Context) :
             holder.binding.characterView.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(v: View?) {
 
-
-
-
                                 val bundle =  Bundle()
                     bundle.putString("characterText",holder.binding.character.toString())
 
@@ -107,8 +104,8 @@ class PagindListCharacterAdapter(var context: Context) :
 
                     animation.setInterpolator(bounce)
                     holder.itemView.startAnimation(animation)
-                    var transaction = fragmentManger.beginTransaction()
-                    transaction.remove(rickAndMortyFragment).commit()
+                 //   var transaction = fragmentManger.beginTransaction()
+                  //  transaction.remove(rickAndMortyFragment).commit()
 
                     var details = details()
 
@@ -118,8 +115,11 @@ class PagindListCharacterAdapter(var context: Context) :
                             it
                         )
                     }
-                    transaction = fragmentManger.beginTransaction()
+
+                    val transaction = fragmentManger.beginTransaction()
                     transaction.add(R.id.fragment_container,details)
+                    transaction.addToBackStack(null)
+
                     transaction.commit()
 
                 }

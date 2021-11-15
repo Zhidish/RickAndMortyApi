@@ -68,17 +68,19 @@ class MenuAdapter(
                     "Planets" -> if (v != null) {
                         //initializing budle for passing key destination
                         val bundle = Bundle()
-                            Log.e("MenuAdapter","MenuAdapter")
+                        Log.e("MenuAdapter", "MenuAdapter")
                         bundle.putString("destination", "Planets")
                         //initializing fragmnet
                         val rickAndMortyFragment = RickAndMortyFragment()
                         rickAndMortyFragment.arguments = bundle
 
-                        fragmentRickAndMortyMenu?.let { fragmentTransaction.remove(it).commit() }
+                   //     fragmentRickAndMortyMenu?.let { fragmentTransaction.remove(it).commit() }
 
                         fragmentTransaction = fragmentManager.beginTransaction()
-                          //  Log.e("Planets", "Planets")
+                        //  Log.e("Planets", "Planets")
                         fragmentTransaction.add(R.id.fragment_container, rickAndMortyFragment)
+                        fragmentTransaction.addToBackStack(null)
+
                             .commit()
 
                     }
@@ -92,13 +94,15 @@ class MenuAdapter(
                         PagindListCharacterAdapter.rickAndMortyFragment = rickAndMortyFragment
                         rickAndMortyFragment.arguments = bundle
 
-                        fragmentRickAndMortyMenu?.let {
-                            fragmentTransaction.remove(it).commit()
-                        }
+                   //     fragmentRickAndMortyMenu?.let {
+                 //           fragmentTransaction.remove(it).commit()
+                    //    }
 
                         fragmentTransaction = fragmentManager.beginTransaction()
 
                         fragmentTransaction.add(R.id.fragment_container, rickAndMortyFragment)
+
+                        fragmentTransaction.addToBackStack(null)
                             .commit()
 
                     }

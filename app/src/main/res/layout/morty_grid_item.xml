@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:visibility="visible">
 
     <data>
+
         <variable
             name="character"
             type="com.leobit.testapplication.network.Character" />
@@ -11,22 +13,26 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/purple_500"
+        android:backgroundTint="#BDAF31">
 
         <ImageView
             android:id="@+id/characterView"
-            android:layout_width="313dp"
-            android:layout_height="192dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="407dp"
+            android:layout_height="300dp"
+            android:clickable="true"
             android:contentDescription="@{character.name}"
             android:enabled="true"
             android:focusable="true"
-            android:clickable="true"
             android:focusableInTouchMode="true"
             app:imageUrl="@{character.image}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.515"
+            tools:ignore="SpeakableTextPresentCheck"
             tools:src="@tools:sample/backgrounds/scenic" />
 
         <TextView

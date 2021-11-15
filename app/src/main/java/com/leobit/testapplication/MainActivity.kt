@@ -1,27 +1,18 @@
 package com.leobit.testapplication
 
 import android.annotation.SuppressLint
-import android.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.SignInButton
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.core.app.ActivityCompat.startActivityForResult
 
 import android.content.Intent
-import android.os.Handler
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
-import com.leobit.testapplication.adapter.RickAndMortyFragment
 import com.leobit.testapplication.morty_menu.MenuAdapter
 import com.leobit.testapplication.morty_menu.RickAndMortyMenuFragment
 
@@ -30,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var mGoogleSignInClient: GoogleSignInClient
-
+    private var fragmentManagerActivity : FragmentManager = supportFragmentManager
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,10 +51,10 @@ class MainActivity : AppCompatActivity() {
         MenuAdapter.fragmentRickAndMortyMenu = rickAndMortyMenuFragment
 
 
-        val fragmentManagerActivity = supportFragmentManager.beginTransaction()
+          val fragmentManagerActivityTransaction = supportFragmentManager.beginTransaction()
 
-        fragmentManagerActivity.add(R.id.fragment_container, rickAndMortyMenuFragment)
-        fragmentManagerActivity.commit()
+        fragmentManagerActivityTransaction.add(R.id.fragment_container, rickAndMortyMenuFragment)
+        fragmentManagerActivityTransaction.commit()
 
         val bottomNavigation =
             findViewById<BottomNavigationView>(R.id.bottom)
@@ -108,4 +99,16 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    override fun onBackPressed() {
+//        super.onBackPressed()
+        var count = fragmentManagerActivity.backStackEntryCount
+
+        if(count==0){
+            super.onBackPressed()
+        }else{
+            fragmentManagerActivity.popBackStack()
+
+        }
+
+    }
 }
