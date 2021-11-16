@@ -10,9 +10,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 import android.content.Intent
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
+import com.leobit.testapplication.adapter.RickAndMortyFragment
 import com.leobit.testapplication.morty_menu.MenuAdapter
 import com.leobit.testapplication.morty_menu.RickAndMortyMenuFragment
 
@@ -21,7 +23,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var mGoogleSignInClient: GoogleSignInClient
-    private var fragmentManagerActivity : FragmentManager = supportFragmentManager
+    private var fragmentManagerActivity: FragmentManager = supportFragmentManager
+
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,11 +50,11 @@ class MainActivity : AppCompatActivity() {
               return;*/
         }
         //initializing FragmentManger
-       val rickAndMortyMenuFragment = RickAndMortyMenuFragment()
+        val rickAndMortyMenuFragment = RickAndMortyMenuFragment()
         MenuAdapter.fragmentRickAndMortyMenu = rickAndMortyMenuFragment
 
 
-          val fragmentManagerActivityTransaction = supportFragmentManager.beginTransaction()
+        val fragmentManagerActivityTransaction = supportFragmentManager.beginTransaction()
 
         fragmentManagerActivityTransaction.add(R.id.fragment_container, rickAndMortyMenuFragment)
         fragmentManagerActivityTransaction.commit()
@@ -63,19 +66,36 @@ class MainActivity : AppCompatActivity() {
 
 
         (bottomNavigation).setOnItemSelectedListener {
+            val newFragment: Fragment = RickAndMortyFragment()
+
             when (it.itemId) {
-                R.id.back -> {
-                    onBackPressed()
-                    true
+                R.id.chars -> {
+                    val bundle = Bundle()
+                    bundle.putString("destination", "Characters")
+
+                    newFragment.arguments = bundle
+
                 }
 
-                R.id.home -> {
+                R.id.locations -> {
+                    val bundle = Bundle()
+                    bundle.putString("destination", "Planets")
 
-                    true
+                    newFragment.arguments = bundle
+
                 }
 
                 else -> false
             }
+            val fragmentManagerActivityTransactionButton = supportFragmentManager.beginTransaction()
+
+            fragmentManagerActivityTransactionButton.add(R.id.fragment_container, newFragment)
+            fragmentManagerActivityTransactionButton.addToBackStack(null)
+            fragmentManagerActivityTransactionButton.commit()
+                true
+
+
+
         }
 
 
@@ -103,9 +123,9 @@ class MainActivity : AppCompatActivity() {
 //        super.onBackPressed()
         var count = fragmentManagerActivity.backStackEntryCount
 
-        if(count==0){
+        if (count == 0) {
             super.onBackPressed()
-        }else{
+        } else {
             fragmentManagerActivity.popBackStack()
 
         }
