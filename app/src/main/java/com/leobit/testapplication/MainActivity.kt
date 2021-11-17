@@ -17,6 +17,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.leobit.testapplication.adapter.RickAndMortyFragment
 import com.leobit.testapplication.morty_menu.MenuAdapter
 import com.leobit.testapplication.morty_menu.RickAndMortyMenuFragment
@@ -158,7 +160,7 @@ class MainActivity : AppCompatActivity() {
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
                     menu?.findItem(R.id.log_out)?.setOnMenuItemClickListener {
                         val sigInIntent = Intent(this,Authorization::class.java)
-                        FirebaseAuth.getInstance().signOut();
+                        Firebase.auth.signOut()
                         startActivity(sigInIntent)
                         true
                     }

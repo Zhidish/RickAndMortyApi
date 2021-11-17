@@ -22,14 +22,13 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
 import java.time.chrono.JapaneseEra.values
 import androidx.core.app.ActivityCompat.startActivityForResult
-
-
-
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 class SigInActivity : AppCompatActivity() {
 
-     val TAG="TAG"
+    val TAG = "Logout"
 
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -39,7 +38,6 @@ class SigInActivity : AppCompatActivity() {
         const val RC_SIGN_IN = 123
 
     }
-
 
 
 /*
@@ -72,13 +70,16 @@ class SigInActivity : AppCompatActivity() {
             .requestIdToken("534016554694-bmceudieb3j0et6ssiidpmm05ektnpjj.apps.googleusercontent.com")
             .requestEmail()
             .build()
-
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         auth = FirebaseAuth.getInstance()
 
-        findViewById<SignInButton>(R.id.sign_in_button).setOnClickListener(object : View.OnClickListener {
+        findViewById<SignInButton>(R.id.sign_in_button).setOnClickListener(object :
+            View.OnClickListener {
             override fun onClick(v: View?) {
+
+                googleSignInClient.signOut()
+                auth.signOut()
                 signIn()
             }
 
@@ -86,6 +87,7 @@ class SigInActivity : AppCompatActivity() {
         )
 
     }
+
     private fun signIn() {
         val signInIntent: Intent = googleSignInClient.getSignInIntent()
         startActivityForResult(signInIntent, RC_SIGN_IN)
@@ -110,6 +112,7 @@ class SigInActivity : AppCompatActivity() {
         }
 
     }
+
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
@@ -118,9 +121,11 @@ class SigInActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
-                    val mainIntent = Intent(this,MainActivity::class.java)
+                    val mainIntent = Intent(this, MainActivity::class.java)
                     startActivity(mainIntent)
-                  //  updateUI(user)
+                    finish()
+
+                    //  updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
@@ -128,11 +133,6 @@ class SigInActivity : AppCompatActivity() {
                 }
             }
     }
-
-
-
-
-
 
 
 }
