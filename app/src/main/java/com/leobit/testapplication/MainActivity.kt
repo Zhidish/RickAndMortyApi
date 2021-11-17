@@ -10,6 +10,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 import android.content.Intent
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -61,7 +64,19 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNavigation =
             findViewById<BottomNavigationView>(R.id.bottom)
+/*
 
+        val toLogOut = findViewById<View>(R.id.log_out)
+
+        toLogOut.setOnClickListener{
+            val sigInIntent = Intent(this,SigInActivity::class.java)
+            startActivity(sigInIntent)
+            finish()
+
+
+
+        }
+*/
 
 
 
@@ -92,9 +107,7 @@ class MainActivity : AppCompatActivity() {
             fragmentManagerActivityTransactionButton.add(R.id.fragment_container, newFragment)
             fragmentManagerActivityTransactionButton.addToBackStack(null)
             fragmentManagerActivityTransactionButton.commit()
-                true
-
-
+            true
 
         }
 
@@ -130,5 +143,25 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val menuInflater = getMenuInflater()
+         val menu = menuInflater.inflate(R.menu.sign_out_menu, menu)
+
+        return true
+    }
+
+
+    @SuppressLint("ResourceType")
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+                    menu?.findItem(R.id.log_out)?.setOnMenuItemClickListener {
+                        val sigInIntent = Intent(this,Authorization::class.java)
+                        FirebaseAuth.getInstance().signOut();
+                        startActivity(sigInIntent)
+                        true
+                    }
+        return true
     }
 }

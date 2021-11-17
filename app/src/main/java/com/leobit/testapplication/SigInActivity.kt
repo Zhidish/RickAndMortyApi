@@ -3,10 +3,12 @@ package com.leobit.testapplication
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.icu.util.TimeUnit.values
 import android.net.Uri
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -18,12 +20,16 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
+import java.time.chrono.JapaneseEra.values
+import androidx.core.app.ActivityCompat.startActivityForResult
 
-const val TAG="TAG"
+
+
 
 
 class SigInActivity : AppCompatActivity() {
 
+     val TAG="TAG"
 
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -35,15 +41,12 @@ class SigInActivity : AppCompatActivity() {
     }
 
 
-    val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        // Handle the returned Uri
-    }
 
-
+/*
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
-        setContentView(R.layout.fragment_log_in)
+        setContentView(R.layout.error)
 
                 Log.e("I am here", "here")
 
@@ -58,41 +61,35 @@ class SigInActivity : AppCompatActivity() {
     findViewById<SignInButton>(R.id.sign_in_button)
 
     }
+*/
 
-    private fun signIn() {
-        val signInIntent = googleSignInClient.signInIntent
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.fragment_log_in)
+        Log.e("I am here", "here")
 
-        // new way for
-        var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("534016554694-bmceudieb3j0et6ssiidpmm05ektnpjj.apps.googleusercontent.com")
+            .requestEmail()
+            .build()
 
-                Log.e("close", "if")
-                if (result.resultCode == RC_SIGN_IN) {
-                    val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-                    try {
-                        // Google Sign In was successful, authenticate with Firebase
-                        val account = task.getResult(ApiException::class.java)!!
-                        Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
-                        firebaseAuthWithGoogle(account.idToken!!)
-                    } catch (e: ApiException) {
-                        // Google Sign In failed, update UI appropriately
-                        Log.w(TAG, "Google sign in failed", e)
-                    }
-                }
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
 
+        auth = FirebaseAuth.getInstance()
 
+        findViewById<SignInButton>(R.id.sign_in_button).setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                signIn()
             }
 
-
-
         }
-
-
-        resultLauncher.launch(signInIntent)
-
+        )
 
     }
-
+    private fun signIn() {
+        val signInIntent: Intent = googleSignInClient.getSignInIntent()
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -121,6 +118,8 @@ class SigInActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
+                    val mainIntent = Intent(this,MainActivity::class.java)
+                    startActivity(mainIntent)
                   //  updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.
@@ -132,19 +131,8 @@ class SigInActivity : AppCompatActivity() {
 
 
 
-    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
-        try {
-            val account = completedTask.getResult(ApiException::class.java)
 
-            // Signed in successfully, show authenticated UI.
-         //   updateUI(account)
 
-        } catch (e: ApiException) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-          //  Log.w(TAG, "signInResult:failed code=" + e.statusCode)
-           // updateUI(null)
-        }
-    }
+
 
 }
