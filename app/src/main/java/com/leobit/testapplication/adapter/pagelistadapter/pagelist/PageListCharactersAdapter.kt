@@ -74,15 +74,19 @@ class PagindListCharacterAdapter(var context: Context) :
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(character: Character) {
             binding.character = character.copy()
-            //obtaining image using Coil
+            //using Coil for obtaining image and putting placeholder and error vector asset
             binding.characterView.let {
                 val imgUrl = character.image.toUri().buildUpon().scheme("https").build()
-                it.load(imgUrl)
+                it.load(imgUrl){
+                    placeholder(R.drawable.loading_animation)
+                    error(R.drawable.ic_broken_image)
+                }
             }
             binding.executePendingBindings()
         }
     }
-
+        /**Binding image with click listener and adding some animation for click action
+          */
     override fun onBindViewHolder(
         holder: CharacterViewHolder,
         @SuppressLint("RecyclerView") position: Int
@@ -95,7 +99,8 @@ class PagindListCharacterAdapter(var context: Context) :
                 override fun onClick(v: View?) {
 
                                 val bundle =  Bundle()
-                    bundle.putString("characterText",holder.binding.character.toString())
+                    bundle.putString("characterText",holder.binding.character.run {  "Character name : ${this?.name}\n Character status : ${this?.status}\n" +
+                            "Character origin : ${this?.origin}\n Character gender : ${this?.gender}" })
 
 
                     val animation =
@@ -153,7 +158,7 @@ class PagingListLocationsAdapter :
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(location: Location) {
-            binding.planet = location.copy()
+            //binding.planet = location.copy()
             //
 
             binding.gridItem.text = with(location) {
@@ -162,7 +167,7 @@ class PagingListLocationsAdapter :
             }
 
 
-            binding.executePendingBindings()
+          //  binding.executePendingBindings()
         }
 
     }

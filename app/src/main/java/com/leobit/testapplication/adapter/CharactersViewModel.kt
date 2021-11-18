@@ -30,42 +30,4 @@ open class CharactersViewModel : ViewModel() {
     }.flow
         .cachedIn(viewModelScope)
 
-/*
-
-    init {
-        getCharacter()
-    }
-
-
-    open fun getCharacter() {
-        viewModelScope.launch {
-
-            val list: MutableList<Character> = ArrayList()
-            //тут я поставив до 20, бо при 671 потрібно  почекати декілька хвилин поки все завантажеться
-
-
-
-            for (i in 1..20) {
-                try {
-                    list.add(CallsToApi.RickAndMortyService.getCharacter(i))
-                } catch (e: HttpException) {
-                    break
-                }
-
-            }
-
-
-
-            _properties.value = list
-        }
-
-        start = end
-        end += 10
-
-    }
-*/
-
-
-
-
 }

@@ -30,7 +30,6 @@ class GridAdapter :
 
     }
 
-
     companion object DiffCallBack : DiffUtil.ItemCallback<Character>() {
         override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean {
             return oldItem.id == newItem.id
