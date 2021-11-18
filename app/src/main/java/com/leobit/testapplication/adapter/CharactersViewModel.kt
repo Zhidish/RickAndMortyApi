@@ -12,11 +12,6 @@ import com.leobit.testapplication.network.Character
 
 open class CharactersViewModel : ViewModel() {
 
-/*
-
-    var start = 1
-    var end = 10
-*/
     open val _properties = MutableLiveData<List<Character>>()
 
     open val properties: LiveData<List<Character>> = _properties
@@ -24,7 +19,7 @@ open class CharactersViewModel : ViewModel() {
     val flow = Pager(
         // Configure how data is loaded by passing additional properties to
         // PagingConfig, such as prefetchDistance.
-        PagingConfig(pageSize = 20)
+        PagingConfig(pageSize = 1)
     ) {
         PositionalCharacterDataSource()
     }.flow

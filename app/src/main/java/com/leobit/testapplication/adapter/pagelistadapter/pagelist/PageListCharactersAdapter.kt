@@ -10,10 +10,9 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
-import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
+
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
+
 
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -21,15 +20,11 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.leobit.testapplication.R
 import com.leobit.testapplication.adapter.RickAndMortyFragment
-
 import com.leobit.testapplication.databinding.GridItemBinding
 import com.leobit.testapplication.network.Character
-
 import com.leobit.testapplication.databinding.MortyGridItemBinding
-import com.leobit.testapplication.detail
 import com.leobit.testapplication.details
 import com.leobit.testapplication.morty_menu.BounceInterpretator
-import com.leobit.testapplication.morty_menu.RickAndMortyMenuFragment
 import com.leobit.testapplication.network.Location
 
 
@@ -77,7 +72,7 @@ class PagindListCharacterAdapter(var context: Context) :
             //using Coil for obtaining image and putting placeholder and error vector asset
             binding.characterView.let {
                 val imgUrl = character.image.toUri().buildUpon().scheme("https").build()
-                it.load(imgUrl){
+                it.load(imgUrl) {
                     placeholder(R.drawable.loading_animation)
                     error(R.drawable.ic_broken_image)
                 }
@@ -85,8 +80,9 @@ class PagindListCharacterAdapter(var context: Context) :
             binding.executePendingBindings()
         }
     }
-        /**Binding image with click listener and adding some animation for click action
-          */
+
+    /**Binding image with click listener and adding some animation for click action
+     */
     override fun onBindViewHolder(
         holder: CharacterViewHolder,
         @SuppressLint("RecyclerView") position: Int
@@ -98,9 +94,11 @@ class PagindListCharacterAdapter(var context: Context) :
             holder.binding.characterView.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(v: View?) {
 
-                                val bundle =  Bundle()
-                    bundle.putString("characterText",holder.binding.character.run {  "Character name : ${this?.name}\n Character status : ${this?.status}\n" +
-                            "Character origin : ${this?.origin}\n Character gender : ${this?.gender}" })
+                    val bundle = Bundle()
+                    bundle.putString("characterText", holder.binding.character.run {
+                        "Character name : ${this?.name}\n Character status : ${this?.status}\n" +
+                                "Character origin : ${this?.origin}\n Character gender : ${this?.gender}"
+                    })
 
 
                     val animation =
@@ -109,20 +107,21 @@ class PagindListCharacterAdapter(var context: Context) :
 
                     animation.setInterpolator(bounce)
                     holder.itemView.startAnimation(animation)
-                 //   var transaction = fragmentManger.beginTransaction()
-                  //  transaction.remove(rickAndMortyFragment).commit()
+                    //   var transaction = fragmentManger.beginTransaction()
+                    //  transaction.remove(rickAndMortyFragment).commit()
 
                     var details = details()
 
-                    details.arguments=bundle
+                    details.arguments = bundle
                     details.arguments?.getString("characterText")?.let {
-                        Log.e("PagindLocationAdapter",
+                        Log.e(
+                            "PagindLocationAdapter",
                             it
                         )
                     }
 
                     val transaction = fragmentManger.beginTransaction()
-                    transaction.add(R.id.fragment_container,details)
+                    transaction.add(R.id.fragment_container, details)
                     transaction.addToBackStack(null)
 
                     transaction.commit()
@@ -160,14 +159,11 @@ class PagingListLocationsAdapter :
         fun bind(location: Location) {
             //binding.planet = location.copy()
             //
-
             binding.gridItem.text = with(location) {
                 "Planet name : ${location.name}\nPlanet type : ${location.type}\n" +
                         "Planet dimension : ${location.dimension}\n"
             }
-
-
-          //  binding.executePendingBindings()
+            //  binding.executePendingBindings()
         }
 
     }

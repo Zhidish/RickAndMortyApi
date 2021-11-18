@@ -40,26 +40,6 @@ class SigInActivity : AppCompatActivity() {
     }
 
 
-/*
-    @SuppressLint("ResourceType")
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-        setContentView(R.layout.error)
-
-                Log.e("I am here", "here")
-
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(9))
-            .requestEmail()
-            .build()
-
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
-
-        auth = FirebaseAuth.getInstance()
-    findViewById<SignInButton>(R.id.sign_in_button)
-
-    }
-*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,17 +54,11 @@ class SigInActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        findViewById<SignInButton>(R.id.sign_in_button).setOnClickListener(object :
-            View.OnClickListener {
-            override fun onClick(v: View?) {
-
-                googleSignInClient.signOut()
-                auth.signOut()
-                signIn()
-            }
-
+        findViewById<SignInButton>(R.id.sign_in_button).setOnClickListener {
+            googleSignInClient.signOut()
+            auth.signOut()
+            signIn()
         }
-        )
 
     }
 

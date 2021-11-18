@@ -22,33 +22,12 @@ class PlanetsViewModel :ViewModel() {
     val flow = Pager(
         // Configure how data is loaded by passing additional properties to
         // PagingConfig, such as prefetchDistance.
-        PagingConfig(pageSize = 20)
+        PagingConfig(pageSize = 1,)
     ) {
       PositionalPlanetDataSource()
     }.flow
         .cachedIn(viewModelScope)
 
-
-/*
-     fun getCharacter() {
-        viewModelScope.launch {
-            val list = ArrayList<Location>()
-
-
-            for (item in 1..108) {
-                try {
-                    list.add(CallsToApi.RickAndMortyService.getLocation(item))
-                } catch (e: HttpException) {
-                    break
-                }
-
-            }
-
-            _properties.value=list
-        }
-
-
-    }*/
 
 
 

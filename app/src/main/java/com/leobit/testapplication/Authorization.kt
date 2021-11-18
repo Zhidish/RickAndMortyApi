@@ -20,6 +20,7 @@ class Authorization : AppCompatActivity() {
         if (user == null) {
                 val signInActivity  = Intent(this,SigInActivity::class.java)
                 startActivity(signInActivity)
+
         } else {
             val mainActivity = Intent(this, MainActivity::class.java)
             startActivity(mainActivity)
