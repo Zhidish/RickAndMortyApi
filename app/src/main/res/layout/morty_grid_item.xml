@@ -19,27 +19,27 @@
         app:cardUseCompatPadding="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:paddingBottom="8dp"
           >
 
             <ImageView
                 android:id="@+id/characterView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:clickable="true"
                 android:contentDescription="@{character.name}"
                 android:enabled="true"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="W,1:1"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.515"
-                tools:ignore="SpeakableTextPresentCheck"
-                tools:src="@tools:sample/backgrounds/scenic" />
+                tools:srcCompat="@tools:sample/avatars"
+              />
 
             <TextView
                 android:id="@+id/characterName"
