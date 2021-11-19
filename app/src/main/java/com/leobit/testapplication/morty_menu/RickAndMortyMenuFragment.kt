@@ -1,15 +1,10 @@
 package com.leobit.testapplication.morty_menu
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-
-import com.leobit.testapplication.R
-import com.leobit.testapplication.databinding.ActivityMainBinding.inflate
-import com.leobit.testapplication.databinding.BottomNavigationViewBinding.inflate
 import com.leobit.testapplication.databinding.RickAndMortyMenuBinding
 
 class RickAndMortyMenuFragment : Fragment() {

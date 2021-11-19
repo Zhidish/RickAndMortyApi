@@ -12,9 +12,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import com.leobit.testapplication.adapter.pagelistadapter.pagelist.PagindListCharacterAdapter
 import com.leobit.testapplication.adapter.pagelistadapter.pagelist.PagingListLocationsAdapter
-import com.leobit.testapplication.databinding.MortyGridBinding
-import com.leobit.testapplication.databinding.RecyclerViewBinding
+import com.leobit.testapplication.databinding.CharactersRecyclerBinding
+import com.leobit.testapplication.databinding.PlanetsRecyclerBinding
 import com.leobit.testapplication.network.Character
+import com.leobit.testapplication.network.Characters
 import com.leobit.testapplication.network.Location
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -45,7 +46,7 @@ class RickAndMortyFragment : Fragment() {
         when (arguments?.getString("destination")) {
             "Characters" -> {
 
-                val binding = MortyGridBinding.inflate(inflater)
+                val binding = CharactersRecyclerBinding.inflate(inflater)
                 binding.lifecycleOwner = this
                 binding.viewModel = charactersViewModel
 //                binding.mortyRecycler.adapter = GridAdapter()
@@ -64,9 +65,9 @@ class RickAndMortyFragment : Fragment() {
 
             "Planets" -> {
                     Log.e("Planets", "in Planets")
-                val binding = RecyclerViewBinding.inflate(inflater)
+                val binding = PlanetsRecyclerBinding.inflate(inflater)
                 binding.lifecycleOwner = this
-                binding.viewModel1 = planetViewModel
+
 
                 val pagindAdapter = PagingListLocationsAdapter()
 
@@ -86,7 +87,7 @@ class RickAndMortyFragment : Fragment() {
 
 
             else -> {
-                val binding = MortyGridBinding.inflate(inflater)
+                val binding =CharactersRecyclerBinding.inflate(inflater)
                 binding.lifecycleOwner = this
                 binding.viewModel = charactersViewModel
 

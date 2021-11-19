@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:name = "com.leobit.testapplication.adapter.RickAndMortyFragment"
-    tools:layout="@layout/morty_grid"
+    tools:layout="@layout/characters_recycler"
     >
 
 </androidx.fragment.app.FragmentContainerView>

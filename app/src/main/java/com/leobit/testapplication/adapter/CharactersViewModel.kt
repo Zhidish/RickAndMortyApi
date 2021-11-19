@@ -19,7 +19,7 @@ open class CharactersViewModel : ViewModel() {
     val flow = Pager(
         // Configure how data is loaded by passing additional properties to
         // PagingConfig, such as prefetchDistance.
-        PagingConfig(pageSize = 1)
+        PagingConfig(pageSize = 20)
     ) {
         PositionalCharacterDataSource()
     }.flow
