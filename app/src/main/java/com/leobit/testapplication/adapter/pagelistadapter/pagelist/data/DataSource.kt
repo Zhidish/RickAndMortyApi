@@ -18,28 +18,17 @@ class PositionalCharacterDataSource : PagingSource<Int, Character>() {
                 state.closestPageToPosition(it)?.prevKey?.plus(1) ?:
                 state.closestPageToPosition(it)?.nextKey?.minus(1)?:
                 state.closestPageToPosition(it)?.prevKey
-
             } else 1
-
         }
-
-
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Character> {
 
 
         return try {
-
             val pageNumber = params.key ?: 0
-
-
             val responds = CallsToApi.RickAndMortyService.getAllCharacters(pageNumber)
-
-
             val prevPage = if (pageNumber > 0) pageNumber - 1 else null
-
-
             val nextPage = if (pageNumber <= responds.info.pages) pageNumber + 1 else null
 
             LoadResult.Page(
@@ -74,27 +63,17 @@ class PositionalPlanetDataSource : PagingSource<Int, Location>(){
                 state.closestPageToPosition(it)?.nextKey?.minus(1)?:
                 state.closestPageToPosition(it)?.prevKey
             }else 1
-
-
         }
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Location> {
 
         return try {
-
             val pageNumber = params.key ?: 0
-
             Log.e("Planet Number", pageNumber.toString())
-
             val responds = CallsToApi.RickAndMortyService.getAllLocation(pageNumber)
-
-
             val prevPage = if (pageNumber > 0) pageNumber - 1 else null
-
-
             val nextPage = if (pageNumber < responds.info.pages) pageNumber + 1 else null
-
             Log.e("Planet Number", nextPage.toString())
 
             LoadResult.Page(
@@ -102,8 +81,6 @@ class PositionalPlanetDataSource : PagingSource<Int, Location>(){
                 prevKey = prevPage,
                 nextKey = nextPage
             )
-
-
 
         } catch (e: IOException) {
             Log.e("IOException", "IOException")
@@ -116,10 +93,5 @@ class PositionalPlanetDataSource : PagingSource<Int, Location>(){
             Log.e("Exception",e.localizedMessage)
             LoadResult.Error(e)
         }
-
-
-
     }
-
-
 }

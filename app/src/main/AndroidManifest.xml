@@ -11,6 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TestApplication">
         <activity
+            android:screenOrientation="portrait"
+            android:launchMode="singleInstance"
             android:name=".MainActivity"
             android:exported="true">
 
@@ -18,8 +20,10 @@
 
 
         <activity
+            android:noHistory="true"
             android:name=".Authorization"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -28,6 +32,7 @@
         </activity>
 
         <activity
+            android:launchMode="singleInstance"
             android:name=".SigInActivity"
             android:exported="true">
 

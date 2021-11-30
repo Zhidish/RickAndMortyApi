@@ -96,6 +96,7 @@ class SigInActivity : AppCompatActivity() {
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
                     val mainIntent = Intent(this, MainActivity::class.java)
+                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     startActivity(mainIntent)
                     finish()
 

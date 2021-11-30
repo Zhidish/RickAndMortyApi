@@ -10,6 +10,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 import android.content.Intent
+import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
@@ -29,6 +30,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private var fragmentManagerActivity: FragmentManager = supportFragmentManager
+
+    companion object {
+     var currentPosition : Int = 0
+        val KEY_CURRENT_POSITION :  String = "com.leobit.testapplication.key.currentPosition"
+
+    }
 
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,46 +57,24 @@ class MainActivity : AppCompatActivity() {
             Log.e("Current", "Current_USER")
 
 
-            //   startActivity(signInIntent)
-            /*  finish();
-              return;*/
         }
-        //initializing FragmentManger
-        val rickAndMortyMenuFragment = RickAndMortyMenuFragment()
-        MenuAdapter.fragmentRickAndMortyMenu = rickAndMortyMenuFragment
-
-
-        val fragmentManagerActivityTransaction = supportFragmentManager.beginTransaction()
-
-        fragmentManagerActivityTransaction.add(R.id.fragment_container, rickAndMortyMenuFragment)
-        fragmentManagerActivityTransaction.commit()
 
         val bottomNavigation =
             findViewById<BottomNavigationView>(R.id.bottom)
-/*
-
-        val toLogOut = findViewById<View>(R.id.log_out)
-
-        toLogOut.setOnClickListener{
-            val sigInIntent = Intent(this,SigInActivity::class.java)
-            startActivity(sigInIntent)
-            finish()
-
-
-
-        }
-*/
 
 
 
         (bottomNavigation).setOnItemSelectedListener {
             val newFragment: Fragment = RickAndMortyFragment()
 
+            fragmentManagerActivity.popBackStack()
+            fragmentManagerActivity.popBackStack()
+
+
             when (it.itemId) {
                 R.id.chars -> {
                     val bundle = Bundle()
                     bundle.putString("destination", "Characters")
-
                     newFragment.arguments = bundle
 
                 }
@@ -97,7 +82,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.locations -> {
                     val bundle = Bundle()
                     bundle.putString("destination", "Planets")
-
                     newFragment.arguments = bundle
 
                 }
@@ -105,33 +89,42 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
             val fragmentManagerActivityTransactionButton = supportFragmentManager.beginTransaction()
-
-            fragmentManagerActivityTransactionButton.add(R.id.fragment_container, newFragment)
+            fragmentManagerActivityTransactionButton.setReorderingAllowed(true)
+            fragmentManagerActivityTransactionButton.replace(R.id.fragment_container, newFragment)
             fragmentManagerActivityTransactionButton.addToBackStack(null)
             fragmentManagerActivityTransactionButton.commit()
             true
 
         }
 
+         if(savedInstanceState!=null){
+             currentPosition = savedInstanceState.getInt(KEY_CURRENT_POSITION,0)
 
+         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        val newFragment: Fragment = RickAndMortyFragment()
+        newFragment.arguments.let {
+            it?.putString("destination","Characters")
+        }
+        val fragmentManagerActivityTransactionButton = supportFragmentManager.beginTransaction()
+        fragmentManagerActivityTransactionButton.setReorderingAllowed(true)
+        fragmentManagerActivityTransactionButton.replace(R.id.fragment_container, newFragment)
+        fragmentManagerActivityTransactionButton.addToBackStack(null)
+        fragmentManagerActivityTransactionButton.commit()
+    }
+
 
 
     override fun onStart() {
         super.onStart()
-
         val account = GoogleSignIn.getLastSignedInAccount(this)
 
 
-        /* updateUI(account)*/
-
-
     }
 
-    private fun signIn() {
-        /*val signInIntent: Intent = mGoogleSignInClient.getSignInIntent()
-        startActivityForResult(signInIntent, RC_SIGN_IN)*/
-    }
 
 
     override fun onBackPressed() {
@@ -142,7 +135,6 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         } else {
             fragmentManagerActivity.popBackStack()
-
         }
 
     }
@@ -150,20 +142,29 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val menuInflater = getMenuInflater()
-         val menu = menuInflater.inflate(R.menu.sign_out_menu, menu)
-
+        val menu = menuInflater.inflate(R.menu.sign_out_menu, menu)
         return true
     }
 
 
     @SuppressLint("ResourceType")
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-                    menu?.findItem(R.id.log_out)?.setOnMenuItemClickListener {
-                        val sigInIntent = Intent(this,Authorization::class.java)
-                        Firebase.auth.signOut()
-                        startActivity(sigInIntent)
-                        true
-                    }
+        menu?.findItem(R.id.log_out)?.setOnMenuItemClickListener {
+            val sigInIntent = Intent(this, Authorization::class.java)
+            Firebase.auth.signOut()
+            startActivity(sigInIntent)
+            true
+        }
         return true
     }
+
+
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        super.onSaveInstanceState(outState, outPersistentState)
+        outState.putInt(KEY_CURRENT_POSITION, currentPosition)
+
+
+    }
+
+
 }

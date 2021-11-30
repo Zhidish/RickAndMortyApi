@@ -9,4 +9,5 @@ object data {
         MenuItem(R.drawable.rickandmorty, "Characters"),
         MenuItem(R.drawable.planets, "Planets")
     )
+
 }
