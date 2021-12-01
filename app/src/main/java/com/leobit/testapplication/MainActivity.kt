@@ -32,9 +32,9 @@ class MainActivity : AppCompatActivity() {
     private var fragmentManagerActivity: FragmentManager = supportFragmentManager
 
     companion object {
-     var currentPosition : Int = 0
-        val KEY_CURRENT_POSITION :  String = "com.leobit.testapplication.key.currentPosition"
-
+        var currentPosition: Int = 0
+        val KEY_CURRENT_POSITION: String = "com.leobit.testapplication.key.currentPosition"
+        var oldFragment: Fragment? = null
     }
 
     @SuppressLint("ResourceType")
@@ -67,8 +67,8 @@ class MainActivity : AppCompatActivity() {
         (bottomNavigation).setOnItemSelectedListener {
             val newFragment: Fragment = RickAndMortyFragment()
 
-            fragmentManagerActivity.popBackStack()
-            fragmentManagerActivity.popBackStack()
+            //  fragmentManagerActivity.popBackStack()
+            //    fragmentManagerActivity.popBackStack()
 
 
             when (it.itemId) {
@@ -88,34 +88,47 @@ class MainActivity : AppCompatActivity() {
 
                 else -> false
             }
-            val fragmentManagerActivityTransactionButton = supportFragmentManager.beginTransaction()
+
+
+            var fragmentManagerActivityTransactionButton = supportFragmentManager.beginTransaction()
+            if (oldFragment != null) {
+                fragmentManagerActivityTransactionButton.remove(oldFragment!!)
+                fragmentManagerActivityTransactionButton.commit()
+                fragmentManagerActivityTransactionButton = supportFragmentManager.beginTransaction()
+            }
+
             fragmentManagerActivityTransactionButton.setReorderingAllowed(true)
-            fragmentManagerActivityTransactionButton.replace(R.id.fragment_container, newFragment)
-            fragmentManagerActivityTransactionButton.addToBackStack(null)
+            oldFragment = newFragment
+            fragmentManagerActivityTransactionButton.add(R.id.fragment_container, newFragment)
             fragmentManagerActivityTransactionButton.commit()
             true
 
         }
 
-         if(savedInstanceState!=null){
-             currentPosition = savedInstanceState.getInt(KEY_CURRENT_POSITION,0)
+        if (savedInstanceState != null) {
+            currentPosition = savedInstanceState.getInt(KEY_CURRENT_POSITION, 0)
 
-         }
+        }
     }
 
     override fun onResume() {
         super.onResume()
         val newFragment: Fragment = RickAndMortyFragment()
         newFragment.arguments.let {
-            it?.putString("destination","Characters")
+            it?.putString("destination", "Characters")
         }
-        val fragmentManagerActivityTransactionButton = supportFragmentManager.beginTransaction()
+        var fragmentManagerActivityTransactionButton = supportFragmentManager.beginTransaction()
+
+        if (oldFragment != null) {
+            fragmentManagerActivityTransactionButton.remove(oldFragment!!)
+            fragmentManagerActivityTransactionButton.commit()
+            fragmentManagerActivityTransactionButton = supportFragmentManager.beginTransaction()
+        }
+        oldFragment = newFragment
         fragmentManagerActivityTransactionButton.setReorderingAllowed(true)
-        fragmentManagerActivityTransactionButton.replace(R.id.fragment_container, newFragment)
-        fragmentManagerActivityTransactionButton.addToBackStack(null)
+        fragmentManagerActivityTransactionButton.add(R.id.fragment_container, newFragment)
         fragmentManagerActivityTransactionButton.commit()
     }
-
 
 
     override fun onStart() {
@@ -124,7 +137,6 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
 
 
     override fun onBackPressed() {
