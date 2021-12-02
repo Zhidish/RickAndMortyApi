@@ -13,6 +13,15 @@ import com.leobit.testapplication.network.Location
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
+
+/**
+ *  ** Locations ViewModel **
+ *
+ *
+ * ViewModel class for obtained data from network  and setting up configuration for its needs
+ *
+ * */
+
 class PlanetsViewModel :ViewModel() {
   val _properties = MutableLiveData<List<Location>>()
 
@@ -27,9 +36,5 @@ class PlanetsViewModel :ViewModel() {
       PositionalPlanetDataSource()
     }.flow
         .cachedIn(viewModelScope)
-
-
-
-
 
 }

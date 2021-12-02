@@ -4,16 +4,12 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
-
 import android.content.Intent
 import android.os.PersistableBundle
 import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -21,16 +17,17 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.leobit.testapplication.adapter.RickAndMortyFragment
-import com.leobit.testapplication.morty_menu.MenuAdapter
-import com.leobit.testapplication.morty_menu.RickAndMortyMenuFragment
 
-
+/**
+ *  MainActivity  for managing fragments by click listener
+ *
+ * */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private var fragmentManagerActivity: FragmentManager = supportFragmentManager
-
+    // static members for VIewPager
     companion object {
         var currentPosition: Int = 0
         val KEY_CURRENT_POSITION: String = "com.leobit.testapplication.key.currentPosition"
@@ -54,23 +51,14 @@ class MainActivity : AppCompatActivity() {
 
         if (currentUser == null) {
             val signInIntent = Intent(this, SigInActivity::class.java)
-            Log.e("Current", "Current_USER")
-
-
         }
 
         val bottomNavigation =
             findViewById<BottomNavigationView>(R.id.bottom)
 
 
-
-        (bottomNavigation).setOnItemSelectedListener {
+       (bottomNavigation).setOnItemSelectedListener {
             val newFragment: Fragment = RickAndMortyFragment()
-
-            //  fragmentManagerActivity.popBackStack()
-            //    fragmentManagerActivity.popBackStack()
-
-
             when (it.itemId) {
                 R.id.chars -> {
                     val bundle = Bundle()
@@ -89,7 +77,6 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
 
-
             var fragmentManagerActivityTransactionButton = supportFragmentManager.beginTransaction()
             if (oldFragment != null) {
                 fragmentManagerActivityTransactionButton.remove(oldFragment!!)
@@ -107,7 +94,6 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState != null) {
             currentPosition = savedInstanceState.getInt(KEY_CURRENT_POSITION, 0)
-
         }
     }
 
@@ -138,7 +124,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
     override fun onBackPressed() {
 //        super.onBackPressed()
         var count = fragmentManagerActivity.backStackEntryCount
@@ -151,13 +136,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val menuInflater = getMenuInflater()
         val menu = menuInflater.inflate(R.menu.sign_out_menu, menu)
+
         return true
     }
-
 
     @SuppressLint("ResourceType")
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
@@ -167,14 +151,13 @@ class MainActivity : AppCompatActivity() {
             startActivity(sigInIntent)
             true
         }
+
         return true
     }
-
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
         super.onSaveInstanceState(outState, outPersistentState)
         outState.putInt(KEY_CURRENT_POSITION, currentPosition)
-
 
     }
 

@@ -10,7 +10,10 @@ import com.leobit.testapplication.network.Location
 import retrofit2.HttpException
 import java.io.IOException
 
-
+/**
+ * Class for obtaining data from network loading  it page by page
+ *
+ * */
 class PositionalCharacterDataSource : PagingSource<Int, Character>() {
     override fun getRefreshKey(state: PagingState<Int, Character>): Int? {
         return state.anchorPosition.let {

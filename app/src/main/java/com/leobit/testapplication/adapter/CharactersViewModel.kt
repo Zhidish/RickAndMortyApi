@@ -9,7 +9,13 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.leobit.testapplication.adapter.pagelistadapter.pagelist.data.PositionalCharacterDataSource
 import com.leobit.testapplication.network.Character
-
+/**
+ *  ** Characters  ViewModel **
+ *
+ *
+ * ViewModel class for obtained data from network  and setting up configuration for its needs
+ *
+ * */
 open class CharactersViewModel : ViewModel() {
 
     open val _properties = MutableLiveData<List<Character>>()
@@ -19,8 +25,6 @@ open class CharactersViewModel : ViewModel() {
     val flow = Pager(
         // Configure how data is loaded by passing additional properties to
         // PagingConfig, such as prefetchDistance.
-
-
 
         PagingConfig(pageSize = 20)
     ) {

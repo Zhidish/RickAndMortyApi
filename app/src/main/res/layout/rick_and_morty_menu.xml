@@ -32,5 +32,4 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/backgrounds/scenic" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

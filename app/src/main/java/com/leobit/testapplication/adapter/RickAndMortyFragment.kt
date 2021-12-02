@@ -23,6 +23,13 @@ import kotlinx.coroutines.flow.collectLatest
 import com.leobit.testapplication.MainActivity
 import kotlinx.coroutines.launch
 
+
+
+
+/**
+ * Fragment for displaying RecyclerView for character and locations
+ *
+ * */
 class RickAndMortyFragment : Fragment() {
     lateinit var charactersViewModel: CharactersViewModel
     lateinit var planetViewModel: PlanetsViewModel
@@ -49,6 +56,7 @@ class RickAndMortyFragment : Fragment() {
                     .inflateTransition(R.transition.exit_grid_transition)
                 val pagindAdapter = context?.let { PagindListCharacterAdapter(it, this) }
                 binding.mortyRecycler.adapter = pagindAdapter
+
                 lifecycleScope.launch {
                     charactersViewModel.flow.collectLatest { value: PagingData<Character> ->
                         pagindAdapter!!.submitData(value)
@@ -126,29 +134,4 @@ class RickAndMortyFragment : Fragment() {
     }
 
 
-    private fun scrollToPosition() {
-        characterRecycler.root.addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
-            override fun onLayoutChange(
-                v: View?,
-                left: Int,
-                top: Int,
-                right: Int,
-                bottom: Int,
-                oldLeft: Int,
-                oldTop: Int,
-                oldRight: Int,
-                oldBottom: Int
-            ) {
-                characterRecycler.root.removeOnLayoutChangeListener(this)
-                val layoutManager = (characterRecycler.mortyRecycler.layoutManager)
-                val viewAtPosition = layoutManager?.findViewByPosition(MainActivity.currentPosition)
-                if (viewAtPosition == null || layoutManager
-                        .isViewPartiallyVisible(viewAtPosition, false, true)
-                ) {
-                    characterRecycler.root.post { layoutManager!!.scrollToPosition(MainActivity.currentPosition) }
-                }
-            }
-        })
-
-    }
 }

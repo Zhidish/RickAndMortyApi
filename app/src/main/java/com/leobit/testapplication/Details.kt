@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.SharedElementCallback
 import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
@@ -16,14 +15,10 @@ import com.leobit.testapplication.databinding.FragmentDetailBinding
 
 
 /**
- * A simple [Fragment] subclass.
- * Use the [details.newInstance] factory method to
- * create an instance of this fragment.
- */
-
-
-class details : Fragment() {
-    // TODO: Rename and change types of parameters
+ * Fragment for displaying image from recycler view
+ *
+ * */
+class Details : Fragment() {
 
     private var characterText: String? = null
     private var characterName: String? = null
@@ -55,8 +50,6 @@ class details : Fragment() {
             }
         }
 
-
-
         return detailBinding.root
     }
 
@@ -69,7 +62,6 @@ class details : Fragment() {
         binding.sharedImage.transitionName = characterName
 
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
