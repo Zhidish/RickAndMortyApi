@@ -19,11 +19,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.leobit.testapplication.R
-import com.leobit.testapplication.adapter.RickAndMortyFragment
+import com.leobit.testapplication.adapter.CharacterFragment
 import com.leobit.testapplication.databinding.GridItemBinding
 import com.leobit.testapplication.network.Character
 import com.leobit.testapplication.databinding.MortyGridItemBinding
 import com.leobit.testapplication.Details
+import com.leobit.testapplication.MainActivity
 import com.leobit.testapplication.network.Location
 
 
@@ -107,7 +108,7 @@ class PagindListCharacterAdapter(var context: Context, var fragment: Fragment) :
                     }
 
                    (fragment.exitTransition as TransitionSet).excludeTarget(v, true)
-                    val transaction = fragmentManger.beginTransaction()
+                    var transaction = fragmentManger.beginTransaction()
                     transaction.setReorderingAllowed(true)
 
                     if (transitionalView != null) {
@@ -116,7 +117,8 @@ class PagindListCharacterAdapter(var context: Context, var fragment: Fragment) :
                             holder!!.binding!!.character!!.name
                         )
                     }
-                    transaction.replace(R.id.fragment_container, details)
+
+                    transaction.add(R.id.fragment_container, details)
                     transaction.addToBackStack(null)
                     transaction.commit()
                 }
@@ -134,7 +136,7 @@ class PagindListCharacterAdapter(var context: Context, var fragment: Fragment) :
 
     companion object {
 
-        lateinit var rickAndMortyFragment: RickAndMortyFragment
+        lateinit var characterFragment: CharacterFragment
 
     }
 }

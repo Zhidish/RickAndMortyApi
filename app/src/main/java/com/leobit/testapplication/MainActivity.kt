@@ -3,20 +3,23 @@ package com.leobit.testapplication
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import android.content.Intent
 import android.os.PersistableBundle
+import android.view.FrameMetrics
 import android.view.Menu
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.leobit.testapplication.adapter.RickAndMortyFragment
+import com.leobit.testapplication.adapter.CharacterFragment
+import com.leobit.testapplication.adapter.FragmentLayout
+import com.leobit.testapplication.adapter.LocationFragment
+import com.leobit.testapplication.adapter.pagelistadapter.pagelist.ViewPagerAdapter
 
 /**
  *  MainActivity  for managing fragments by click listener
@@ -27,11 +30,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private var fragmentManagerActivity: FragmentManager = supportFragmentManager
-    // static members for VIewPager
+    private lateinit var viewPager : ViewPager2
+
+
+    // static members for ViewPager
     companion object {
         var currentPosition: Int = 0
         val KEY_CURRENT_POSITION: String = "com.leobit.testapplication.key.currentPosition"
         var oldFragment: Fragment? = null
+        val characterFragment = CharacterFragment()
+       val locationFragment =  LocationFragment()
+        val fragmentLayout = FragmentLayout()
     }
 
     @SuppressLint("ResourceType")
@@ -40,86 +49,49 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.bottom_navigation_view)
 
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .build()
-
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        auth = FirebaseAuth.getInstance()
-        val currentUser = auth.currentUser
-
-
-        if (currentUser == null) {
-            val signInIntent = Intent(this, SigInActivity::class.java)
-        }
+        viewPager=  findViewById(R.id.viewpager)
+        val viewPagerAdapter  = ViewPagerAdapter(fragmentManagerActivity,lifecycle)
+        viewPagerAdapter.fragmentList.add(fragmentLayout)
+        viewPagerAdapter.fragmentList.add(locationFragment)
+        viewPager.adapter = viewPagerAdapter
 
         val bottomNavigation =
             findViewById<BottomNavigationView>(R.id.bottom)
 
 
+
+
        (bottomNavigation).setOnItemSelectedListener {
-            val newFragment: Fragment = RickAndMortyFragment()
+
             when (it.itemId) {
                 R.id.chars -> {
-                    val bundle = Bundle()
-                    bundle.putString("destination", "Characters")
-                    newFragment.arguments = bundle
+                  viewPager.setCurrentItem(0)
 
                 }
-
                 R.id.locations -> {
-                    val bundle = Bundle()
-                    bundle.putString("destination", "Planets")
-                    newFragment.arguments = bundle
+                    viewPager.setCurrentItem(1)
 
                 }
 
-                else -> false
+                else ->
+                    viewPager.setCurrentItem(0)
             }
 
-            var fragmentManagerActivityTransactionButton = supportFragmentManager.beginTransaction()
-            if (oldFragment != null) {
-                fragmentManagerActivityTransactionButton.remove(oldFragment!!)
-                fragmentManagerActivityTransactionButton.commit()
-                fragmentManagerActivityTransactionButton = supportFragmentManager.beginTransaction()
-            }
-
-            fragmentManagerActivityTransactionButton.setReorderingAllowed(true)
-            oldFragment = newFragment
-            fragmentManagerActivityTransactionButton.add(R.id.fragment_container, newFragment)
-            fragmentManagerActivityTransactionButton.commit()
             true
 
         }
+        viewPager.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                   bottomNavigation.menu.getItem(position).setChecked(true)
 
-        if (savedInstanceState != null) {
-            currentPosition = savedInstanceState.getInt(KEY_CURRENT_POSITION, 0)
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        val newFragment: Fragment = RickAndMortyFragment()
-        newFragment.arguments.let {
-            it?.putString("destination", "Characters")
-        }
-        var fragmentManagerActivityTransactionButton = supportFragmentManager.beginTransaction()
-
-        if (oldFragment != null) {
-            fragmentManagerActivityTransactionButton.remove(oldFragment!!)
-            fragmentManagerActivityTransactionButton.commit()
-            fragmentManagerActivityTransactionButton = supportFragmentManager.beginTransaction()
-        }
-        oldFragment = newFragment
-        fragmentManagerActivityTransactionButton.setReorderingAllowed(true)
-        fragmentManagerActivityTransactionButton.add(R.id.fragment_container, newFragment)
-        fragmentManagerActivityTransactionButton.commit()
-    }
+                }
+            }
+        )
 
 
-    override fun onStart() {
-        super.onStart()
-        val account = GoogleSignIn.getLastSignedInAccount(this)
+
+
 
 
     }

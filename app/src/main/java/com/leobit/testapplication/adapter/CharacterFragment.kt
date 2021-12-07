@@ -30,9 +30,8 @@ import kotlinx.coroutines.launch
  * Fragment for displaying RecyclerView for character and locations
  *
  * */
-class RickAndMortyFragment : Fragment() {
+class CharacterFragment : Fragment() {
     lateinit var charactersViewModel: CharactersViewModel
-    lateinit var planetViewModel: PlanetsViewModel
     lateinit var characterRecycler: CharactersRecyclerBinding
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,12 +41,8 @@ class RickAndMortyFragment : Fragment() {
 
 
         charactersViewModel = ViewModelProvider(this).get(CharactersViewModel::class.java)
-        planetViewModel = ViewModelProvider(this).get(PlanetsViewModel::class.java)
 
 
-
-        when (arguments?.getString("destination")) {
-            "Characters" -> {
 
                 val binding = CharactersRecyclerBinding.inflate(inflater)
                 binding.lifecycleOwner = this
@@ -67,56 +62,13 @@ class RickAndMortyFragment : Fragment() {
                 return binding.root
             }
 
-            "Planets" -> {
-                Log.e("Planets", "in Planets")
-                val binding = PlanetsRecyclerBinding.inflate(inflater)
-                binding.lifecycleOwner = this
 
 
-                val pagindAdapter = context?.let { PagingListLocationsAdapter(it) }
-
-                binding.recyler.adapter = pagindAdapter
-
-                lifecycleScope.launch {
-                    planetViewModel.flow.collectLatest { value: PagingData<Location> ->
-                        pagindAdapter?.submitData(value)
-                    }
-
-                }
-
-                return binding.root
-
-            }
 
 
-            else -> {
-                val binding = CharactersRecyclerBinding.inflate(inflater)
-                binding.lifecycleOwner = this
-                binding.viewModel = charactersViewModel
-
-                prepareTransition()
 
 
-                val pagindAdapter = context?.let { PagindListCharacterAdapter(it, this) }
-                binding.mortyRecycler.adapter = pagindAdapter
 
-                lifecycleScope.launch {
-                    charactersViewModel.flow.collectLatest { value: PagingData<Character> ->
-                        pagindAdapter!!.submitData(value)
-                    }
-
-                }
-
-                characterRecycler = binding
-                return binding.root
-
-
-            }
-
-
-        }
-
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

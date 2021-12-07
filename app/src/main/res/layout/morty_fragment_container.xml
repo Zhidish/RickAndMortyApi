@@ -6,7 +6,7 @@
     android:id = "@+id/mortyRecycler"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name = "com.leobit.testapplication.adapter.RickAndMortyFragment"
+    android:name = "com.leobit.testapplication.adapter.CharacterFragment"
     tools:layout="@layout/characters_recycler"
     >
 
