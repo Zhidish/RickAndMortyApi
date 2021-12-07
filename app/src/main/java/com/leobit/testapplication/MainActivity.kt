@@ -30,17 +30,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private var fragmentManagerActivity: FragmentManager = supportFragmentManager
-    private lateinit var viewPager : ViewPager2
 
 
     // static members for ViewPager
     companion object {
-        var currentPosition: Int = 0
-        val KEY_CURRENT_POSITION: String = "com.leobit.testapplication.key.currentPosition"
-        var oldFragment: Fragment? = null
         val characterFragment = CharacterFragment()
-       val locationFragment =  LocationFragment()
+        val locationFragment = LocationFragment()
         val fragmentLayout = FragmentLayout()
+        lateinit var viewPager: ViewPager2
     }
 
     @SuppressLint("ResourceType")
@@ -49,9 +46,9 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.bottom_navigation_view)
 
-        viewPager=  findViewById(R.id.viewpager)
-        val viewPagerAdapter  = ViewPagerAdapter(fragmentManagerActivity,lifecycle)
-        viewPagerAdapter.fragmentList.add(fragmentLayout)
+        viewPager = findViewById(R.id.viewpager)
+        val viewPagerAdapter = ViewPagerAdapter(fragmentManagerActivity, lifecycle)
+        viewPagerAdapter.fragmentList.add(characterFragment)
         viewPagerAdapter.fragmentList.add(locationFragment)
         viewPager.adapter = viewPagerAdapter
 
@@ -61,11 +58,11 @@ class MainActivity : AppCompatActivity() {
 
 
 
-       (bottomNavigation).setOnItemSelectedListener {
+        (bottomNavigation).setOnItemSelectedListener {
 
             when (it.itemId) {
                 R.id.chars -> {
-                  viewPager.setCurrentItem(0)
+                    viewPager.setCurrentItem(0)
 
                 }
                 R.id.locations -> {
@@ -83,19 +80,16 @@ class MainActivity : AppCompatActivity() {
         viewPager.registerOnPageChangeCallback(
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
-                   bottomNavigation.menu.getItem(position).setChecked(true)
+                    bottomNavigation.menu.getItem(position).setChecked(true)
 
                 }
             }
         )
 
 
-
-
-
-
     }
 
+    @SuppressLint("WrongConstant")
     override fun onBackPressed() {
 //        super.onBackPressed()
         var count = fragmentManagerActivity.backStackEntryCount
@@ -103,6 +97,7 @@ class MainActivity : AppCompatActivity() {
         if (count == 0) {
             super.onBackPressed()
         } else {
+            viewPager.visibility=0
             fragmentManagerActivity.popBackStack()
         }
 
@@ -127,11 +122,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-        super.onSaveInstanceState(outState, outPersistentState)
-        outState.putInt(KEY_CURRENT_POSITION, currentPosition)
 
-    }
 
 
 }

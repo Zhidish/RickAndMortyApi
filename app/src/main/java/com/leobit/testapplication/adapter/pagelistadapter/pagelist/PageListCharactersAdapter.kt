@@ -88,6 +88,7 @@ class PagindListCharacterAdapter(var context: Context, var fragment: Fragment) :
         val character = getItem(position)
         if (character != null) {
             holder.binding.characterView.setOnClickListener(object : View.OnClickListener{
+                @SuppressLint("WrongConstant")
                 override fun onClick(v: View?) {
 
                     val bundle = Bundle()
@@ -117,6 +118,8 @@ class PagindListCharacterAdapter(var context: Context, var fragment: Fragment) :
                             holder!!.binding!!.character!!.name
                         )
                     }
+                    MainActivity.viewPager.visibility=0x00000004
+
 
                     transaction.add(R.id.fragment_container, details)
                     transaction.addToBackStack(null)
