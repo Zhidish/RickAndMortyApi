@@ -1,8 +1,7 @@
-package com.leobit.testapplication.adapter
+package com.leobit.testapplication.fragments
 
 import android.os.Bundle
 import android.transition.TransitionInflater
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,16 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
-import androidx.recyclerview.widget.RecyclerView
 import com.leobit.testapplication.R
 import com.leobit.testapplication.adapter.pagelistadapter.pagelist.PagindListCharacterAdapter
-import com.leobit.testapplication.adapter.pagelistadapter.pagelist.PagingListLocationsAdapter
 import com.leobit.testapplication.databinding.CharactersRecyclerBinding
-import com.leobit.testapplication.databinding.PlanetsRecyclerBinding
 import com.leobit.testapplication.network.Character
-import com.leobit.testapplication.network.Location
 import kotlinx.coroutines.flow.collectLatest
-import com.leobit.testapplication.MainActivity
 import kotlinx.coroutines.launch
 
 

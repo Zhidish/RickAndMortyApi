@@ -8,14 +8,14 @@
 
         <variable
             name="viewModel"
-            type="com.leobit.testapplication.adapter.CharactersViewModel" />
+            type="com.leobit.testapplication.fragments.CharactersViewModel" />
     </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.leobit.testapplication.adapter.CharacterFragment">
+        tools:context="com.leobit.testapplication.fragments.CharacterFragment">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh"

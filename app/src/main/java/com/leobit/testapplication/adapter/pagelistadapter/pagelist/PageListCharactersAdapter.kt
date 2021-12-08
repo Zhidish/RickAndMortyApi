@@ -19,12 +19,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.leobit.testapplication.R
-import com.leobit.testapplication.adapter.CharacterFragment
 import com.leobit.testapplication.databinding.GridItemBinding
 import com.leobit.testapplication.network.Character
 import com.leobit.testapplication.databinding.MortyGridItemBinding
-import com.leobit.testapplication.Details
-import com.leobit.testapplication.MainActivity
+import com.leobit.testapplication.fragments.DetailsFragment
+import com.leobit.testapplication.activities.MainActivity
 import com.leobit.testapplication.network.Location
 
 
@@ -98,15 +97,10 @@ class PagindListCharacterAdapter(var context: Context, var fragment: Fragment) :
                     })
                     bundle.putString("characterName", holder?.binding?.character?.name)
                     bundle.putString("characterImage", holder?.binding?.character?.image)
-                    var details = Details()
+                    var details = DetailsFragment()
                     val transitionalView = v?.findViewById<ImageView>(R.id.characterView)
                     details.arguments = bundle
-                    details.arguments?.getString("characterText")?.let {
-                        Log.e(
-                            "PagindLocationAdapter",
-                            it
-                        )
-                    }
+
 
                    (fragment.exitTransition as TransitionSet).excludeTarget(v, true)
                     var transaction = fragmentManger.beginTransaction()
@@ -118,7 +112,11 @@ class PagindListCharacterAdapter(var context: Context, var fragment: Fragment) :
                             holder!!.binding!!.character!!.name
                         )
                     }
-                    MainActivity.viewPager.visibility=0x00000004
+                         MainActivity.viewPager.visibility=0x00000004
+
+
+                   /* (MainActivity.viewPager.adapter as ViewPagerAdapter).addFragment(details)
+                    MainActivity.viewPager.setCurrentItem(2,false)*/
 
 
                     transaction.add(R.id.fragment_container, details)
@@ -137,11 +135,6 @@ class PagindListCharacterAdapter(var context: Context, var fragment: Fragment) :
         return CharacterViewHolder(MortyGridItemBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
-    companion object {
-
-        lateinit var characterFragment: CharacterFragment
-
-    }
 }
 
 class PagingListLocationsAdapter(var context: Context) :

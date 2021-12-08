@@ -1,4 +1,4 @@
-package com.leobit.testapplication
+package com.leobit.testapplication.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +11,7 @@ import com.google.android.gms.common.SignInButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
+import com.leobit.testapplication.R
 
 class SigInActivity : AppCompatActivity() {
 

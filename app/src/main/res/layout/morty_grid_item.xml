@@ -5,7 +5,6 @@
     android:visibility="visible">
 
     <data>
-
         <variable
             name="character"
             type="com.leobit.testapplication.network.Character" />

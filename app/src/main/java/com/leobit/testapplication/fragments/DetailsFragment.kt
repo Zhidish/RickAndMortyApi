@@ -1,4 +1,4 @@
-package com.leobit.testapplication
+package com.leobit.testapplication.fragments
 
 
 import android.os.Bundle
@@ -11,6 +11,7 @@ import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import coil.load
+import com.leobit.testapplication.R
 import com.leobit.testapplication.databinding.FragmentDetailBinding
 
 
@@ -18,7 +19,7 @@ import com.leobit.testapplication.databinding.FragmentDetailBinding
  * Fragment for displaying image from recycler view
  *
  * */
-class Details : Fragment() {
+class DetailsFragment : Fragment() {
 
     private var characterText: String? = null
     private var characterName: String? = null
@@ -39,9 +40,9 @@ class Details : Fragment() {
     ): View? {
         var detailBinding = FragmentDetailBinding.inflate(inflater)
             binding=  detailBinding
-        Log.e("details", "invoking")
+
         detailBinding.idCharacter.text = characterText
-        characterText?.let { Log.e("characterText", it) }
+
         detailBinding.sharedImage.let {
             val imgUrl = characterImage?.toUri()?.buildUpon()?.scheme("https")?.build()
             it.load(imgUrl) {

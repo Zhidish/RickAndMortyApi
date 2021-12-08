@@ -1,4 +1,4 @@
-package com.leobit.testapplication.adapter
+package com.leobit.testapplication.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.leobit.testapplication.MainActivity
+import com.leobit.testapplication.activities.MainActivity
 import com.leobit.testapplication.R
 import com.leobit.testapplication.databinding.FrameLayoutBinding
 
@@ -25,7 +25,7 @@ class FragmentLayout : Fragment() {
 
         var fragmentManagerTransaction = fragmentManager.beginTransaction()
 
-        fragmentManagerTransaction.add(R.id.fragment_container,MainActivity.characterFragment)
+        fragmentManagerTransaction.add(R.id.fragment_container, MainActivity.characterFragment)
         fragmentManagerTransaction.commit()
         return frameLayout.root.rootView
     }

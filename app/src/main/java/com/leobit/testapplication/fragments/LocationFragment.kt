@@ -1,4 +1,4 @@
-package com.leobit.testapplication.adapter
+package com.leobit.testapplication.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
