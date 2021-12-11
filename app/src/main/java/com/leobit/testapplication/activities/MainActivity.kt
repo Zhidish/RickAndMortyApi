@@ -47,12 +47,8 @@ class MainActivity : AppCompatActivity() {
         viewPagerAdapter.fragmentList.add(locationFragment)
         viewPager.adapter = viewPagerAdapter
 
-
-
         val bottomNavigation =
             findViewById<BottomNavigationView>(R.id.bottom)
-
-
 
 
         (bottomNavigation).setOnItemSelectedListener {
@@ -95,7 +91,6 @@ class MainActivity : AppCompatActivity() {
         if (count == 0) {
             super.onBackPressed()
         } else {
-            viewPager.visibility=0
             fragmentManagerActivity.popBackStack()
         }
 

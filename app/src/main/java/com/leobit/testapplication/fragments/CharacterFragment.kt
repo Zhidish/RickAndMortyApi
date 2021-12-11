@@ -36,8 +36,6 @@ class CharacterFragment : Fragment() {
 
         charactersViewModel = ViewModelProvider(this).get(CharactersViewModel::class.java)
 
-
-
                 val binding = CharactersRecyclerBinding.inflate(inflater)
                 binding.lifecycleOwner = this
                 binding.viewModel = charactersViewModel
@@ -57,13 +55,6 @@ class CharacterFragment : Fragment() {
             }
 
 
-
-
-
-
-
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         postponeEnterTransition()
@@ -72,11 +63,6 @@ class CharacterFragment : Fragment() {
             startPostponedEnterTransition()
         }
 
-    }
-
-    fun prepareTransition(): Unit {
-        exitTransition = TransitionInflater.from(context)
-            .inflateTransition(R.transition.exit_grid_transition)
     }
 
 

@@ -60,6 +60,8 @@ class DetailsFragment : Fragment() {
                 .inflateTransition(R.transition.image_shared_element_transition)
         sharedElementEnterTransition = transition
         ViewCompat.setTransitionName(binding.sharedImage,characterName)
+        characterName?.let { Log.e("Name", it) }
+
         binding.sharedImage.transitionName = characterName
 
     }
@@ -67,6 +69,8 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         prepareSharedElementTransition(binding)
+
+
     }
 
 }

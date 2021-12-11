@@ -3,6 +3,7 @@ package com.leobit.testapplication.adapter.pagelistadapter.pagelist
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.transition.TransitionSet
 import android.util.Log
 import android.view.LayoutInflater
@@ -97,10 +98,10 @@ class PagindListCharacterAdapter(var context: Context, var fragment: Fragment) :
                     })
                     bundle.putString("characterName", holder?.binding?.character?.name)
                     bundle.putString("characterImage", holder?.binding?.character?.image)
+
                     var details = DetailsFragment()
                     val transitionalView = v?.findViewById<ImageView>(R.id.characterView)
                     details.arguments = bundle
-
 
                    (fragment.exitTransition as TransitionSet).excludeTarget(v, true)
                     var transaction = fragmentManger.beginTransaction()
@@ -111,15 +112,12 @@ class PagindListCharacterAdapter(var context: Context, var fragment: Fragment) :
                             transitionalView,
                             holder!!.binding!!.character!!.name
                         )
+
+                        Log.e("Name_1", holder!!.binding!!.character!!.name)
                     }
-                         MainActivity.viewPager.visibility=0x00000004
-
-
                    /* (MainActivity.viewPager.adapter as ViewPagerAdapter).addFragment(details)
                     MainActivity.viewPager.setCurrentItem(2,false)*/
-
-
-                    transaction.add(R.id.fragment_container, details)
+                    transaction.add(R.id.recycler_fragment, details)
                     transaction.addToBackStack(null)
                     transaction.commit()
                 }
@@ -148,11 +146,10 @@ class PagingListLocationsAdapter(var context: Context) :
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(location: Location) {
-            //binding.planet = location.copy()
-            //
+
             binding.gridItem.text = ("Planet name : ${location.name}\nPlanet type : ${location.type}\n" +
                     "Planet dimension : ${location.dimension}\n")
-            //  binding.executePendingBindings()
+
         }
 
     }

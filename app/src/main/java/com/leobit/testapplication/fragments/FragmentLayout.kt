@@ -27,6 +27,6 @@ class FragmentLayout : Fragment() {
 
         fragmentManagerTransaction.add(R.id.fragment_container, MainActivity.characterFragment)
         fragmentManagerTransaction.commit()
-        return frameLayout.root.rootView
+        return frameLayout.root
     }
 }
