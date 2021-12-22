@@ -1,0 +1,131 @@
+[33mcommit 3fd7a2cea6b338030bed82e0282c6149277888a3[m[33m ([m[1;36mHEAD -> [m[1;32mtest_1[m[33m, [m[1;31morigin/test_branch[m[33m, [m[1;32mtest_branch[m[33m, [m[1;32mbase_library[m[33m)[m
+Author: Rostya <doublelongword137@gmail.com>
+Date:   Sat Dec 11 15:13:42 2021 +0200
+
+    fixed VIewPager
+
+[33mcommit 92b2e4873b719e8963e14ac8e945b63e0c9baa77[m[33m ([m[1;31morigin/base_library[m[33m)[m
+Author: Rostya <doublelongword137@gmail.com>
+Date:   Wed Dec 8 09:30:31 2021 +0200
+
+    implemented splash_activity
+
+[33mcommit fe0c969cea8652d30e56583dd634e8173bfa64aa[m
+Author: Rostya <doublelongword137@gmail.com>
+Date:   Tue Dec 7 18:12:06 2021 +0200
+
+    v1_working_version
+
+[33mcommit a2794dab4fcc98e9a891e9c36eefcb2c63bf241e[m[33m ([m[1;32mworking_branch[m[33m)[m
+Author: Rostya <doublelongword137@gmail.com>
+Date:   Tue Dec 7 17:39:20 2021 +0200
+
+    implementing ViewPager not working
+
+[33mcommit b43e8eedc99adbb07867f0b97801249b11bb7687[m[33m ([m[1;32mrv_view_pager[m[33m)[m
+Author: Rostya <doublelongword137@gmail.com>
+Date:   Thu Dec 2 10:19:48 2021 +0200
+
+    refactored code
+
+[33mcommit a3dd54cc36841010acea83e45ed880dda08fa2da[m
+Author: Rostya <doublelongword137@gmail.com>
+Date:   Wed Dec 1 14:41:07 2021 +0200
+
+    implementing correct behavior of fragment replace()
+
+[33mcommit f0e227d87f1c59c07b543ba49d13a19a159bce08[m
+Author: Rostya <doublelongword137@gmail.com>
+Date:   Tue Nov 30 16:41:33 2021 +0200
+
+    implementing shared element
+
+[33mcommit f26e2eee8ca3fbd0015ba56a9f6fce3838bb0a14[m
+Author: Rostya <doublelongword137@gmail.com>
+Date:   Fri Nov 19 14:30:26 2021 +0200
+
+    refactoring character view
+
+[33mcommit c76a481fc32fa26faed313b1ec54738374da3065[m
+Author: Rostya <doublelongword137@gmail.com>
+Date:   Fri Nov 19 14:04:23 2021 +0200
+
+    refactoring characters view recycler
+
+[33mcommit 921c3ab8899d4cf97235bcfcab39438245f3eb73[m
+Author: Rostya <doublelongword137@gmail.com>
+Date:   Thu Nov 18 16:49:31 2021 +0200
+
+    bugfix paggindsource run out
+
+[33mcommit 1f6cae72c7acb9babd7ee1e0de5eae9da938f0df[m
+Author: Rostya <doublelongword137@gmail.com>
+Date:   Thu Nov 18 12:56:06 2021 +0200
+
+    refactoring layout
+
+[33mcommit fae8be27c81921f1b4ca2dfe5aa4d1d57f0088b0[m
+Author: Rostya <doublelongword137@gmail.com>
+Date:   Wed Nov 17 14:41:28 2021 +0200
+
+    implementing log_out
+
+[33mcommit bb3fd2e079bc3ff2e94cd890574cc8594d6ac4b4[m
+Author: Rostya <doublelongword137@gmail.com>
+Date:   Wed Nov 17 13:26:40 2021 +0200
+
+    implementing signInButton and bugfixing for startActivity
+
+[33mcommit 1585b962744b309335d2160b0970f05900d8abe6[m
+Author: Rostya <doublelongword137@gmail.com>
+Date:   Tue Nov 16 10:24:44 2021 +0200
+
+    implementing nav buttons
+
+[33mcommit 49da3c65686ddbb4928e359bfc26557559e5d153[m
+Author: Rostya <doublelongword137@gmail.com>
+Date:   Mon Nov 15 19:19:58 2021 +0200
+
+    implementing backStackButoon
+
+[33mcommit 19a51dd9040d7abba913540d02a88b54508aac18[m
+Author: Rostya <doublelongword137@gmail.com>
+Date:   Mon Nov 15 13:20:38 2021 +0200
+
+    implementing navigation using old libraries
+
+[33mcommit 668e23eee5bfc8df834540a336629ae9934394d3[m
+Author: Rostya <doublelongword137@gmail.com>
+Date:   Fri Nov 12 11:34:34 2021 +0200
+
+    implementing FragmentManager
+
+[33mcommit 219a9ee8c0c1fd487db2f345d948faa3686fb9be[m
+Author: Rostya <doublelongword137@gmail.com>
+Date:   Fri Nov 12 09:40:47 2021 +0200
+
+    changes in base_brench
+
+[33mcommit 074e4f78b0f17a7ee540d541fd11f5167c0781e8[m
+Author: Rostya <doublelongword137@gmail.com>
+Date:   Tue Nov 9 15:12:17 2021 +0200
+
+    implementing paggind and problem with starting of activity
+
+[33mcommit 30889e82034f789e808c982fcf4b8847721b021a[m
+Author: Rostya <doublelongword137@gmail.com>
+Date:   Fri Nov 5 10:35:51 2021 +0200
+
+    implementing paggind and refactory code
+
+[33mcommit 97f8d08993af74d03d70096af25f77120ebd3723[m
+Author: Rostya <doublelongword137@gmail.com>
+Date:   Thu Oct 28 18:23:03 2021 +0300
+
+    Implementing buttons for navigation
+
+[33mcommit d897ee41410b24d816e1fb0623214107ae23944b[m[33m ([m[1;31morigin/branch1[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Rostya <doublelongword137@gmail.com>
+Date:   Thu Oct 28 08:26:10 2021 +0300
+
+    first Initial commit of TestApplication

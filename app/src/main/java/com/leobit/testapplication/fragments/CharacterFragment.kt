@@ -27,12 +27,14 @@ import kotlinx.coroutines.launch
 class CharacterFragment : Fragment() {
     lateinit var charactersViewModel: CharactersViewModel
     lateinit var characterRecycler: CharactersRecyclerBinding
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        postponeEnterTransition()
 
         charactersViewModel = ViewModelProvider(this).get(CharactersViewModel::class.java)
 

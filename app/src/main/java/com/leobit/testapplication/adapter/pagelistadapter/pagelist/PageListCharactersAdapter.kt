@@ -1,7 +1,10 @@
 package com.leobit.testapplication.adapter.pagelistadapter.pagelist
 
 import android.annotation.SuppressLint
+import android.app.ActivityOptions
 import android.content.Context
+import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.transition.TransitionSet
@@ -19,13 +22,17 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestListener
 import com.leobit.testapplication.R
+import com.leobit.testapplication.activities.DetailActivity
 import com.leobit.testapplication.databinding.GridItemBinding
 import com.leobit.testapplication.network.Character
 import com.leobit.testapplication.databinding.MortyGridItemBinding
 import com.leobit.testapplication.fragments.DetailsFragment
 import com.leobit.testapplication.activities.MainActivity
 import com.leobit.testapplication.network.Location
+import kotlin.math.log
 
 
 // object for tracking changes for echa grid item
@@ -59,7 +66,10 @@ class PagindListCharacterAdapter(var context: Context, var fragment: Fragment) :
     ) {
     var fragmentManger: FragmentManager = (context as AppCompatActivity).supportFragmentManager
 
-    class CharacterViewHolder(
+
+
+
+   inner class CharacterViewHolder(
         var binding: MortyGridItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(character: Character) {
@@ -73,6 +83,7 @@ class PagindListCharacterAdapter(var context: Context, var fragment: Fragment) :
                     error(R.drawable.ic_broken_image)
                 }
             }
+
             ViewCompat.setTransitionName(binding.characterView, character.name)
             binding.executePendingBindings()
         }
@@ -91,35 +102,21 @@ class PagindListCharacterAdapter(var context: Context, var fragment: Fragment) :
                 @SuppressLint("WrongConstant")
                 override fun onClick(v: View?) {
 
-                    val bundle = Bundle()
-                    bundle.putString("characterText", holder.binding.character.run {
+                    holder.binding.characterView.transitionName = holder?.binding?.character?.name
+                    var  detailIntent = Intent(context,DetailActivity::class.java)
+                    detailIntent.putExtra("CharacterText",holder.binding.character.run {
                         "Character name : ${this?.name}\n Character status : ${this?.status}\n" +
                                 "Character origin : ${this?.origin}\n Character gender : ${this?.gender}"
                     })
-                    bundle.putString("characterName", holder?.binding?.character?.name)
-                    bundle.putString("characterImage", holder?.binding?.character?.image)
+                    detailIntent.putExtra("CharacterName",holder?.binding?.character?.name)
+                    detailIntent.putExtra("CharacterImage", holder?.binding?.character?.image)
 
-                    var details = DetailsFragment()
-                    val transitionalView = v?.findViewById<ImageView>(R.id.characterView)
-                    details.arguments = bundle
+                    val options = ActivityOptions
+                        .makeSceneTransitionAnimation((context as AppCompatActivity), v,
+                            v?.let { ViewCompat.getTransitionName(it) })
+                    context.startActivity(detailIntent,options.toBundle())
 
-                   (fragment.exitTransition as TransitionSet).excludeTarget(v, true)
-                    var transaction = fragmentManger.beginTransaction()
-                    transaction.setReorderingAllowed(true)
 
-                    if (transitionalView != null) {
-                        transaction.addSharedElement(
-                            transitionalView,
-                            holder!!.binding!!.character!!.name
-                        )
-
-                        Log.e("Name_1", holder!!.binding!!.character!!.name)
-                    }
-                   /* (MainActivity.viewPager.adapter as ViewPagerAdapter).addFragment(details)
-                    MainActivity.viewPager.setCurrentItem(2,false)*/
-                    transaction.add(R.id.recycler_fragment, details)
-                    transaction.addToBackStack(null)
-                    transaction.commit()
                 }
 
 
